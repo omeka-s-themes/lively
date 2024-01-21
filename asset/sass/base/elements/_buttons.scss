@@ -1,0 +1,65 @@
+button,
+.button,
+input[type="button"],
+input[type="reset"],
+input[type="submit"] {
+    @include primary-button;
+
+    &.btn--secondary {
+        @include secondary-button;
+    }
+
+    &.link-style {
+        background-color: transparent !important;
+        color: $color__link;
+        padding-left: 0;
+        padding-right: 0;
+        text-transform: none;
+        text-decoration: underline;
+    }
+
+    &.icon-btn {
+        padding: 0;
+        background-color: transparent !important;
+        color: $color__buttons;
+        font-size: 1.7rem;
+        line-height: 1;
+
+        &:hover,
+        &:active,
+        &:focus {
+            color: $color__secondary;
+        }
+
+        &:disabled,
+        &[disabled]
+        &.disabled {
+            color: $color__disabled;
+        }
+    }
+}
+
+button.add-value,
+button.remove-value {
+    background-color: $color__white;
+    border: 1px solid $color__hr;
+    border-radius: 50%;
+    cursor: pointer;
+    color: $color__primary;
+    width: 35px;
+    height: 35px;
+    padding: 5px 9px;
+    text-transform: uppercase;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    flex-shrink: 0;
+
+    &:hover {
+        background-color: $color__primary !important;
+        color: $color__white;
+    }
+}
+
+.button {
+    cursor: pointer;
+}

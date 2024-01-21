@@ -1,0 +1,53 @@
+ul,
+ol {
+    margin: 0;
+    padding-left: 2rem;
+}
+
+ul {
+    margin-bottom: 1.5rem;
+
+    li {
+        margin-bottom: 0.5rem;
+
+        &::marker {
+            color: $color__primary;
+        }
+    }
+}
+
+ol {
+    list-style: decimal;
+    margin-bottom: 1.5rem;
+
+    li {
+        margin-bottom: 0.5rem;
+
+        &::marker {
+            color: $color__primary;
+            font-weight: 600;
+            margin-right: 15px;
+        }
+    }
+}
+
+li > ul,
+li > ol {
+    margin-bottom: 0;
+    margin-left: 1.5em;
+}
+
+dt {
+    color: $color__black;
+    font-size: $font__h6-sm-size; //18px
+    font-weight: 600;
+
+    @media (min-width: $md) {
+        font-size: $font__h6-base-size; //30px
+    }
+}
+
+dd {
+    margin: 0 1rem 1rem 0;
+    @include clearfix();
+}

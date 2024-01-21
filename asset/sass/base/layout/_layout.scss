@@ -1,0 +1,39 @@
+html, body {
+    width: 100%;
+}
+
+body {
+    padding-top: 133px;
+
+    @media (min-width: $lg) {
+        padding-top: 160px;
+    }
+}
+
+.container {
+    @include container;
+}
+
+#main-content {
+    padding-top: 2rem;
+    padding-bottom: 3rem;
+
+    @media (min-width: $lg) {
+        padding-top: 3rem;
+        padding-bottom: 4rem;
+    }
+
+    body.items.search & {
+        @media (min-width: $lg) {
+            max-width: 1160px;
+            padding: 3rem 10rem 4rem 4rem;
+        }
+
+        @media (min-width: $xl) {
+            max-width: 1160px;
+            padding: 3rem 10rem 4rem;
+        }
+    }
+}
+
+@import "regions";

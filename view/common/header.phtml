@@ -1,0 +1,38 @@
+<header class="main-header">
+
+	<?php echo $userBar; ?>
+
+	<?php echo $this->partial('common/top-header'); ?>
+
+	<div class="main-header__main-bar container">
+		<div class="main-header__site-title">
+			<a href="<?php echo $site->url(); ?>">
+			<?php if ($this->themeSetting('logo')): ?>
+				<img src="<?php echo $this->themeSettingAssetUrl('logo'); ?>" alt="<?php echo $this->escapeHtml( $site->title() ); ?>" />
+			<?php else: ?>
+				<?php echo $this->escapeHtml( $site->title() ); ?>
+			<?php endif; ?>
+			</a>
+		</div>
+
+		<nav class="main-navigation">
+			<div class="main-navigation__container">
+				<?php
+				echo $site->publicNav()->menu()->renderMenu(null, [
+					'addClassToListItem' => true,
+					'maxDepth' => $this->themeSetting('nav_depth') - 1
+				]);
+				?>
+			</div>
+			<div class="main-navigation__toggle">
+				<span></span>
+				<span></span>
+				<span></span>
+			</div>
+		</nav>
+
+		<?php echo $this->partial('common/main-header-search'); ?>
+
+	</div>
+
+</header>

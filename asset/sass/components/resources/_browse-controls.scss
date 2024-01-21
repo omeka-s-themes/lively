@@ -1,0 +1,51 @@
+.browse-controls {
+    display: flex;
+    align-items: center;
+    border-bottom: 1px solid $color__hr;
+    flex-wrap: wrap;
+    gap: 1.5rem;
+    justify-content: space-between;
+    margin-bottom: 30px;
+    padding-bottom: 30px;
+
+    input[type=text],
+    select {
+        padding: 8px 10px;
+        margin-bottom: 0;
+    }
+
+    select {
+        padding-right: 45px;
+    }
+
+    .layout-toggle {
+        display: flex;
+        gap: 20px;
+    }
+
+    .sorting {
+        display: flex;
+        gap: 15px;
+        margin-left: auto;
+
+        button {
+            padding: 10px 15px;
+        }
+    }
+
+    .advanced-search-container {
+        display: flex;
+        justify-content: flex-end;
+        width: 100%;
+
+        a {
+            font-size: $font__xs-size;
+            text-transform: uppercase;
+        }
+    }
+
+    .permalink {
+        @include secondary-button;
+        padding: 10px 20px;
+    }
+}

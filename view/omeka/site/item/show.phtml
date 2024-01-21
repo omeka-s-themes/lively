@@ -1,0 +1,69 @@
+<?php
+$translate = $this->plugin('translate');
+$escape = $this->plugin('escapeHtml');
+
+$this->headLink()->appendStylesheet($this->assetUrl('css/resource-page-blocks.css', 'Omeka'));
+$this->htmlElement('body')->appendAttribute('class', 'item resource show');
+
+$filterLocale = (bool) $this->siteSetting('filter_locale_values');
+$lang = $this->lang();
+$valueLang = $filterLocale ? [$lang, ''] : null;
+
+// Regions
+$mainBlockContent = $this->resourcePageBlocks($item);
+$mainHasBlocks = $mainBlockContent->hasBlocks();
+$leftSidebarBlockContent = $this->resourcePageBlocks($item, 'left');
+$leftSidebarHasBlocks = $leftSidebarBlockContent->hasBlocks();
+$rightSidebarBlockContent = $this->resourcePageBlocks($item, 'right');
+$rightSidebarHasBlocks = $rightSidebarBlockContent->hasBlocks();
+?>
+
+<?php echo $this->ResourceTags($item); ?>
+<?php echo $this->pageTitle($item->displayTitle(null, $valueLang), 1); ?>
+
+<?php $this->trigger('view.show.before'); ?>
+
+<?php if ($mainHasBlocks || $leftSidebarHasBlocks || $rightSidebarHasBlocks): ?>
+
+    <?php
+    $additionalContainerClasses = '';
+    if ($mainHasBlocks && $leftSidebarHasBlocks && $rightSidebarHasBlocks) {
+        $additionalContainerClasses = 'regions-container--all';
+    } elseif ($mainHasBlocks && !$leftSidebarHasBlocks && !$rightSidebarHasBlocks) {
+        $additionalContainerClasses = 'regions-container--main';
+    }
+    ?>
+
+    <div class="regions-container <?php echo $additionalContainerClasses; ?>">
+        <?php if ($leftSidebarHasBlocks && $blockContent = $leftSidebarBlockContent->getBlocks()): ?>
+            <div class="sidebar-region sidebar-region--left">
+                <div class="metadata">
+                    <?php echo $blockContent; ?>
+                </div>
+            </div>
+        <?php endif; ?>
+
+        <?php if ($mainHasBlocks && $blockContent = $mainBlockContent->getBlocks()): ?>
+            <div class="main-region">
+                <div class="metadata">
+                    <?php echo $blockContent; ?>
+                </div>
+            </div>
+        <?php endif; ?>
+
+        <?php if ($rightSidebarHasBlocks && $blockContent = $rightSidebarBlockContent->getBlocks()): ?>
+            <div class="sidebar-region sidebar-region--right">
+                <div class="metadata">
+                    <?php echo $blockContent; ?>
+                </div>
+            </div>
+        <?php endif; ?>
+    </div>
+
+<?php endif; ?>
+
+<p class="media-parent-item textcenter">
+    <?php echo sprintf($translate('Part of %s'), $item->link($item->displayTitle(null, $valueLang))); ?>
+</p>
+
+<?php $this->trigger('view.show.after'); ?>

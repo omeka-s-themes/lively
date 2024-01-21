@@ -1,0 +1,33 @@
+.resource .description {
+    white-space: -moz-pre-wrap; /* Mozilla */
+    white-space: -hp-pre-wrap; /* HP printers */
+    white-space: -o-pre-wrap; /* Opera 7 */
+    white-space: -pre-wrap; /* Opera 4-6 */
+    white-space: pre-wrap; /* CSS 2.1 */
+    white-space: pre-line; /* CSS 3 (and 2.1 as well, actually) */
+    word-wrap: break-word; /* IE */
+    word-break: break-word;
+
+    &.fadeout {
+        position: relative;
+        max-height: 6.2rem;
+        overflow: hidden;
+        
+        &::after {
+            content: "";
+            background: linear-gradient(to right, rgba($color__white, 0), rgba($color__white, 1) 60%);
+            height: 1.7rem;
+            left: 50%;
+            position: absolute;
+            right: 0;
+            top: 4.5rem;
+        }
+    }
+
+    &.ellipsis {
+        display: -webkit-box;
+        -webkit-line-clamp: 4;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+    }    
+}

@@ -1,0 +1,124 @@
+.main-header {
+    background-color: $color__white;
+    position: fixed;
+    width: 100%;
+    top: 0;
+    left: 0;
+    z-index: 1040;
+    //box-shadow: 0px 4px 6px 2px rgba(0,0,0,0.11);
+    border-bottom: 1px solid $color__secondary;
+    transition: top 0.3s ease-out;
+
+    &__top-bar {
+        background-color: $color__secondary;
+        display: none;
+
+        @media (min-width: $xl) {
+            display: block;
+        }
+
+        .container {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding-top: 10px;
+            padding-bottom: 10px;
+            color: $color__white;
+
+            @media (min-width: $lg) {
+                align-items: flex-end;
+                justify-content: space-between;
+            }
+
+            a {
+                color: $color__white;
+                text-decoration: none;
+            }
+
+            .top-bar__info {
+                display: flex;
+                gap: 100px;
+                margin-right: 10px;
+
+                .contact_info {
+                    display: flex;
+                    align-items: center;
+
+                    &::before {
+                        @include font-awesome;
+                        display: inline-block;
+                        font-weight: 600;
+                        font-size: 1.2rem;
+                        margin-right: 10px;
+                    }
+                }
+
+                .contact_info_phone::before {
+                    content: "\f879";
+                }
+
+                .contact_info_email::before {
+                    content: "\f0e0";
+                }
+
+                .contact_info_location::before {
+                    content: "\f3c5";
+                }
+            }
+
+            .top-bar__advanced-search {
+                display: flex;
+                align-items: center;
+
+                &::after {
+                    @include font-awesome;
+                    content: "\f0a9";
+                    display: inline-block;
+                    font-weight: 600;
+                    font-size: 1.2rem;
+                    margin-left: 5px; 
+                }
+            }
+        }
+    }
+
+    
+    hr {
+        background-color: $color__secondary;
+        margin-bottom: 0;
+    }
+
+    &__main-bar {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        position: relative;
+    }
+
+    &__site-title {
+        flex-shrink: 0;
+        max-width: 50%;
+
+        @media (min-width: $lg) {
+            max-width: 30%;
+        }
+
+        a {
+            display: block;
+            font-weight: 600;
+            font-size: 1.2rem;
+            line-height: 1.2;
+        }
+
+        img {
+            max-height: 50px;
+            width: auto;
+
+            @media (min-width: $lg) {
+                max-height: 60px;
+            }
+        }
+        
+    }
+
+}

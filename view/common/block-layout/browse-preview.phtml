@@ -1,0 +1,91 @@
+<?php
+$translate = $this->plugin('translate');
+$escape = $this->plugin('escapeHtml');
+$thumbnail = $this->plugin('thumbnail');
+
+$this->inlineScript()->appendFile($this->assetUrl('js/minimasonry.min.js'));
+$this->inlineScript()->appendFile($this->assetUrl('js/browse.js'));
+
+$filterLocale = (bool) $this->siteSetting('filter_locale_values');
+$lang = $this->lang();
+$valueLang = $filterLocale ? [$lang, ''] : null;
+
+$layoutSetting = $this->themeSetting('browse_layout', 'grid');
+$bodyTruncate = $this->themeSetting('truncate_body_property');
+$gridState = ($layoutSetting == 'togglegrid') ? 'disabled' : '';
+$listState = ($layoutSetting == 'togglelist') ? 'disabled': '';
+$currentLayout = (strpos($layoutSetting, 'grid') !== false) ? 'grid' : 'list';
+$isGrid = ($currentLayout == 'grid') ? true : false;
+$queryUrl = $this->url(
+    'site/resource', ['controller' => $this->resourceType, 'action' => 'browse'], ['query' => $this->query], true
+);
+
+$showThumbnail = in_array('thumbnail', $this->components);
+$showHeading = in_array('resource-heading', $this->components);
+$showBody = in_array('resource-body', $this->components);
+$headingTerm = $this->siteSetting('browse_heading_property_term');
+$bodyTerm = $this->siteSetting('browse_body_property_term');
+$decoration = $this->themeSetting('image_decoration');
+$decorationClass = '';
+
+if (is_array($decoration) && in_array('media', $decoration)) {
+    $decorationClass = $isGrid ? 'decoration' : 'decoration decoration--thumbnail';
+}
+?>
+
+<div class="preview-block clearfix">
+
+    <?php if ($this->heading) : ?>
+        <div class="preview-header">
+            <h3><?php echo $this->hyperlink($this->heading, $queryUrl); ?></h3>
+        </div>
+    <?php endif; ?>
+
+    <?php if (strpos($layoutSetting, 'toggle') !== false) : ?>
+        <div class="browse-controls">
+            <div class="layout-toggle">
+                <button type="button" aria-label="<?php echo $translate('Grid'); ?>" class="grid icon-btn o-icon-grid" <?php echo $gridState; ?>></button>
+                <button type="button" aria-label="<?php echo $translate('List'); ?>" class="list icon-btn o-icon-list" <?php echo $listState; ?>></button>        
+            </div>
+        </div>
+    <?php endif; ?>
+
+
+    <ul class="resources <?php echo ($isGrid) ? 'resource-grid' : 'resource-list'; ?>">
+        <?php
+        foreach ($this->resources as $resource):
+            $heading = $headingTerm ? $resource->value($headingTerm, ['default' => $translate('[Untitled]'), 'lang' => $valueLang]) : $resource->displayTitle(null, ($valueLang));
+            $body = $bodyTerm ? $resource->value($bodyTerm) : $resource->displayDescription(null, ($valueLang));
+            $primaryMedia = $resource->primaryMedia();
+            ?>
+            <li class="<?php echo $this->resourceType; ?> resource <?php echo ($isGrid) ? '' : 'media-object'; ?>">
+                <!-- Thumbnail -->
+                <?php if ($showThumbnail) : ?>
+                    <div class="resource__thumbnail <?php echo $decorationClass; ?>">
+                        <?php echo $resource->linkRaw($this->thumbnail($resource, 'large')); ?>
+                    </div>
+                <?php endif; ?>
+
+                <!-- Content -->
+                <div class="resource__content">
+                    <?php if ($showHeading) : ?>
+                        <?php echo $this->ResourceTags($resource); ?>
+                        <?php echo $resource->link($escape($heading)); ?>
+                    <?php endif; ?>
+
+                    <?php if ($showBody && $body) : ?>
+                        <div class="description <?php echo ($bodyTruncate) ? $bodyTruncate : ''; ?>"><?php echo $escape($body); ?></div>
+                    <?php endif; ?>
+                </div>
+            </li>
+
+        <?php endforeach; ?>
+    </ul>
+
+    <?php
+    if ($this->linkText) :
+        echo $this->hyperlink($this->linkText, $queryUrl, ['class' => 'browse-all']);
+    endif;
+    ?>
+
+</div>
