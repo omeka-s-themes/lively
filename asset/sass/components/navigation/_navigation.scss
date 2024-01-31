@@ -1,6 +1,11 @@
 .main-navigation {
-    margin-left: auto;
-    margin-right: 20px;
+    order: 2;
+
+    @media (min-width: $xl) {
+        margin-left: auto;
+        margin-right: 20px;
+        order: initial;
+    }
 
     &__container {
         display: none;

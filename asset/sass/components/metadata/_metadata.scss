@@ -10,6 +10,10 @@
         margin-bottom: 2rem;
     }
 
+    .media-embed {
+        margin-bottom: 1rem;
+    }
+
     dl {
         margin-top: 0;
         margin-bottom: 2rem;
@@ -67,7 +71,6 @@
 
     .media-list {
         dd {
-            border: 1px solid $color__hr;
             margin-bottom: 1rem !important;
 
             &:last-child {

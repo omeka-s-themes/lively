@@ -1,10 +1,10 @@
 .regions-container {
     display: flex;
     flex-direction: column;
-    gap: 60px;
+    gap: 50px;
     margin-bottom: 3rem;
     padding-bottom: 50px;
-    border-bottom: 1px solid $color__hr;
+    border-bottom: 1px solid $color__secondary;
 
     @media (min-width: $md) {
         flex-direction: row;
@@ -25,16 +25,7 @@
         width: 100%;
 
         @media (min-width: $md) {
-            width: 27%;
-        }
-
-        &::after {
-            content: "";
-            position: absolute;
-            width: 1px;
-            height: calc(100% + 100px);
-            background-color: $color__hr;
-            top: -50px;
+            width: 30%;
         }
 
         &--left {
@@ -69,7 +60,7 @@
             width: 100% !important;
 
             @media (min-width: $xl) {
-                width: 27% !important;
+                width: 30% !important;
             }
         }
     }

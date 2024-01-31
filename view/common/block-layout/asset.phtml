@@ -6,17 +6,21 @@ $decoration = $this->themeSetting('image_decoration');
 <div class="assets <?php echo $escape($className); ?> <?php echo $escape($alignment); ?>">
   <?php foreach ($attachments as $attachment): ?>
     <?php $asset = $attachment['asset']; ?>
-    <div class="asset <?php echo is_array($decoration) && in_array('asset', $decoration) ? 'decoration' : ''; ?>">
+    <div class="asset">
         <?php $assetImage = ($asset) ? $this->thumbnail($asset, 'large') : ''; ?>
         <?php $page = (array_key_exists('page', $attachment)) ? $attachment['page'] : null; ?>
         <?php if ($page): ?>
             <a href="<?php echo $escape($page->siteUrl()); ?>">
-                <?php echo $assetImage; ?>
+                <div class="<?php echo is_array($decoration) && in_array('asset', $decoration) ? 'decoration' : ''; ?>">
+                  <?php echo $assetImage; ?>
+                </div>
                 <?php $altLinkTitle = ($attachment['alt_link_title'] !== '') ? $escape($attachment['alt_link_title']) : false; ?>
                 <span class="link-title"><?php echo ($altLinkTitle) ? $altLinkTitle : $escape($page->title()); ?></span>
             </a>
         <?php else: ?>
+          <div class="<?php echo is_array($decoration) && in_array('asset', $decoration) ? 'decoration' : ''; ?>">
             <?php echo $assetImage; ?>
+          </div>
         <?php endif; ?>
         <?php if ($attachment['caption'] !== ''): ?>
         <div class="caption"><?php echo $escape($attachment['caption']); ?></div>

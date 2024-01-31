@@ -2,7 +2,7 @@
 
     #container {
         flex-wrap: wrap;
-        gap: 3rem;
+        gap: 2rem;
 
         @media (min-width: $lg) {
             flex-wrap: nowrap;
@@ -10,22 +10,24 @@
     }
 
     #section-sidebar {
-        border-right: 1px solid #ececec;
-        padding-right: 1rem;
+        display: block !important;
         width: 100%;
 
         @media (min-width: $lg) {
-            padding-right: 1.6rem;
             width: 25%;
         }
 
         .field, fieldset {
             box-shadow: none;
+            background-color: $color__gray-95;
+            padding-left: 1.2rem;
         }
     }
 
     #section-content {
+        padding-left: 0;
         width: 100%;
+        
 
         @media (min-width: $lg) {
             width: 75%;
@@ -84,6 +86,8 @@
     }
 
     #categories {
+        margin-top: 0;
+
         li {
             border-bottom: none;
 
@@ -95,6 +99,7 @@
 
     #categories-return {
         display: inline-block;
+        margin-bottom: 33px;
 
         &::before {
             @include font-awesome;
@@ -104,6 +109,17 @@
             padding-right: 5px;
             text-decoration: none;
         }
+    }
+
+    .categories-container {
+        margin-bottom: 0;
+        padding-top: 1rem;
+    }
+
+    .facets-container {
+        align-items: flex-start;
+        flex-direction: column;
+        margin-bottom: 0;
     }
 
     .categories-container legend,
@@ -135,8 +151,7 @@
         padding-top: 5px;
 
         .resource {
-            flex-wrap: wrap;
-            padding: 0.75rem !important;
+            padding: 0 !important;
         }
 
         .resource-link {
@@ -152,16 +167,16 @@
 
 
     table {
-        border-collapse: separate;
+        border-collapse: collapse;
         border-spacing: 0 15px;
 
         thead {
-            background-color: $color__gray-93;
-            color: $color__black;
+            background-color: $color__secondary;
+            color: $color__white;
 
             th {
                 padding: 0.75rem;
-                font-weight: 600;
+                font-weight: 500;
                 text-align: left;
             }
         }
@@ -169,7 +184,7 @@
         tbody {
 
             tr {
-                box-shadow: 0px 1px 6px rgba($color__black, 0.2);
+                border-bottom: 1px dashed $color__gray-80;
 
                 td {
                     padding: 0.75rem;

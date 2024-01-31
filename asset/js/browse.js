@@ -6,18 +6,14 @@ const browseScripts = () => {
         const layoutToggles = resourcesSet.parentElement.querySelectorAll('.layout-toggle button');
 
         const initMasonryGrid = () => {
-            if (resourcesSet.classList.contains('resource-grid') && !resourcesSet.dataset.masonryReady) {
+            if (resourcesSet.classList.contains('resource-grid')) {
                 // Masonry
-                resourcesSet.dataset.masonryReady = true;
-                var masonry = new MiniMasonry({
-                    container: resourcesSet,
-                    gutter: 27,
-                    ultimateGutter: 27,
-                    surroundingGutter: false
+                var msnry = new Masonry( resourcesSet, {
+                    itemSelector: '.resource',
+                    columnWidth: '.grid-sizer',
+                    gutter: '.gutter-sizer',
+                    percentPosition: true,
                 });
-
-                //Reset layout on img load
-                resourcesSet.querySelectorAll('img').forEach((img) => img.addEventListener('load', () => masonry.layout()))
             }
         }
 

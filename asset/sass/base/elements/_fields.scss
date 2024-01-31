@@ -137,7 +137,8 @@ label.sub-label {
 
 .field,
 fieldset {
-    box-shadow: 0px 1px 6px rgba($color__black, 0.25);
+    border: 1px dashed $color__gray-80;
+    border-radius: 20px 0;
     padding: 20px 25px;
     margin-bottom: 25px;
 }

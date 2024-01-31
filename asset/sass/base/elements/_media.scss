@@ -8,6 +8,10 @@ object {
 img {
     height: auto; // Make sure images are scaled correctly.
     max-width: 100%; // Adhere to container width.
+
+    #main-content & {
+        border-radius: 20px 0;
+    }
 }
 
 figure {
@@ -15,18 +19,34 @@ figure {
 }
 
 .decoration {
+    display: inline-block;
+    font-size: 0;
+    position: relative;
+    padding: 10px 0 0 10px;
+
+    &::after {
+        content: "";
+        width: calc(100% - 10px);
+        height: calc(100% - 10px);
+        border-radius: 20px 0;
+        position: absolute;
+        left: 0;
+        top: 0;
+        border: 1px dashed $color__complementary;
+        z-index: 2;
+        pointer-events: none;
+    } 
+
     img {
-        outline: 1px solid $color__white;
-        outline-offset: -10px;
+
 
         @media(min-width: $md) {
-            outline-offset: -20px;
         }
     }
 
     &--thumbnail {
         img {
-            outline-offset: -10px;
+            border-radius: 10px 0;
         }
     }
 }

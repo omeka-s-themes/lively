@@ -53,7 +53,7 @@ class ResourceTags extends AbstractHelper
                     if (array_key_exists($resourceName, $mapResourceName)) {
                         $tagColor = $this->getUniqueColorFromId($mapResourceName[$resourceName]['id'], 'pastel');
                         $tagLabel = $mapResourceName[$resourceName]['label'];
-                        $tagsHtml .= '<div class="resource-tag" style="background-color: ' . $tagColor . ';">' . $tagLabel . '</div>';
+                        $tagsHtml .= '<div class="resource-tag"><span class="resource-tag-color" style="background-color: ' . $tagColor . ';"></span>' . $tagLabel . '</div>';
                     }
                 }
             }
@@ -72,7 +72,7 @@ class ResourceTags extends AbstractHelper
                     if ($resourceClassId) {
                         $tagColor = $this->getUniqueColorFromId((int) $resourceClassId + 10, 'pastel'); // Offset of 50 for Resource Types.
                         $tagLabel = $resource->displayResourceClassLabel();
-                        $tagsHtml .= '<div class="resource-tag" style="background-color: ' . $tagColor . ';">' . $tagLabel . '</div>';
+                        $tagsHtml .= '<div class="resource-tag"><span class="resource-tag-color" style="background-color: ' . $tagColor . ';"></span>' . $tagLabel . '</div>';
                     }
                 }
             }
@@ -102,7 +102,7 @@ class ResourceTags extends AbstractHelper
                 break;
             
             case 'pastel':
-                $color = "hsl({$n}, 100%, 87.5%)";
+                $color = "hsl({$n}, 100%, 75.5%)";
                 break;
         }
 

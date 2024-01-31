@@ -1,18 +1,14 @@
 .title {
-    display: block;
-    border-bottom: 1px solid $color__hr;
-    padding-bottom: 1rem;
-    position: relative;
-    width: 100%;
+    display: flex;
+    gap: 10px;
 
-    &::after {
+    &::before {
         display: block;
+        align-self: stretch;
         content: "";
         background-color: $color__primary;
-        bottom: -1px;
-        height: 3px;
-        left: 0;
-        position: absolute;
-        width: 64px;
+        width: 8px;
+        border-radius: 5px 0 0 5px;
+        flex-shrink: 0;
     }
 }

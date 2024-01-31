@@ -1,12 +1,24 @@
 .language {
-    display: inline-block;
-    background-color: $color__primary;
-    border-radius: 3px;
-    color: $color__white;
+    display: inline-flex;
+    align-items: center;
+    background-color: $color__gray-95;
+    border-radius: 20px;
+    color: $color__black;
     font-family: $font__body;
     font-size: $font__xs-size;
     font-weight: 600;
     line-height: 1;
-    padding: 5px;
+    padding: 5px 10px 5px 5px;
     vertical-align: top;
+    height: 22px;
+
+    &::before {
+        content: "";
+        display: block;
+        background-color: $color__primary;
+        width: 14px;
+        height: 14px;
+        border-radius: 50%;
+        margin-right: 5px;
+    }
 }

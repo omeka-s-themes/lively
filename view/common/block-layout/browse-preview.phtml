@@ -1,9 +1,8 @@
 <?php
 $translate = $this->plugin('translate');
 $escape = $this->plugin('escapeHtml');
-$thumbnail = $this->plugin('thumbnail');
 
-$this->inlineScript()->appendFile($this->assetUrl('js/minimasonry.min.js'));
+$this->inlineScript()->appendFile($this->assetUrl('js/masonry.pkgd.min.js'));
 $this->inlineScript()->appendFile($this->assetUrl('js/browse.js'));
 
 $filterLocale = (bool) $this->siteSetting('filter_locale_values');
@@ -25,12 +24,7 @@ $showHeading = in_array('resource-heading', $this->components);
 $showBody = in_array('resource-body', $this->components);
 $headingTerm = $this->siteSetting('browse_heading_property_term');
 $bodyTerm = $this->siteSetting('browse_body_property_term');
-$decoration = $this->themeSetting('image_decoration');
-$decorationClass = '';
 
-if (is_array($decoration) && in_array('media', $decoration)) {
-    $decorationClass = $isGrid ? 'decoration' : 'decoration decoration--thumbnail';
-}
 ?>
 
 <div class="preview-block clearfix">
@@ -44,25 +38,29 @@ if (is_array($decoration) && in_array('media', $decoration)) {
     <?php if (strpos($layoutSetting, 'toggle') !== false) : ?>
         <div class="browse-controls">
             <div class="layout-toggle">
-                <button type="button" aria-label="<?php echo $translate('Grid'); ?>" class="grid icon-btn o-icon-grid" <?php echo $gridState; ?>></button>
-                <button type="button" aria-label="<?php echo $translate('List'); ?>" class="list icon-btn o-icon-list" <?php echo $listState; ?>></button>        
+                <?php echo $translate('View as:'); ?>
+                <button type="button" aria-label="<?php echo $translate('Grid'); ?>" class="grid" <?php echo $gridState; ?>><?php echo $translate('Grid'); ?></button>
+                <span class="layout-toggle-separator"></span>
+                <button type="button" aria-label="<?php echo $translate('List'); ?>" class="list" <?php echo $listState; ?>><?php echo $translate('List'); ?></button>        
             </div>
         </div>
     <?php endif; ?>
 
 
-    <ul class="resources <?php echo ($isGrid) ? 'resource-grid' : 'resource-list'; ?>">
+    <div class="resources <?php echo ($isGrid) ? 'resource-grid' : 'resource-list'; ?>">
+        <div class="grid-sizer"></div>
+        <div class="gutter-sizer"></div>
         <?php
         foreach ($this->resources as $resource):
             $heading = $headingTerm ? $resource->value($headingTerm, ['default' => $translate('[Untitled]'), 'lang' => $valueLang]) : $resource->displayTitle(null, ($valueLang));
             $body = $bodyTerm ? $resource->value($bodyTerm) : $resource->displayDescription(null, ($valueLang));
-            $primaryMedia = $resource->primaryMedia();
+            $thumbnail = $this->thumbnail($resource, 'large');
             ?>
-            <li class="<?php echo $this->resourceType; ?> resource <?php echo ($isGrid) ? '' : 'media-object'; ?>">
+            <div class="<?php echo $this->resourceType; ?> resource <?php echo ($isGrid) ? '' : 'media-object'; ?>">
                 <!-- Thumbnail -->
-                <?php if ($showThumbnail) : ?>
-                    <div class="resource__thumbnail <?php echo $decorationClass; ?>">
-                        <?php echo $resource->linkRaw($this->thumbnail($resource, 'large')); ?>
+                <?php if ($thumbnail && $showThumbnail) : ?>
+                    <div class="resource__thumbnail">
+                        <?php echo $resource->linkRaw($thumbnail); ?>
                     </div>
                 <?php endif; ?>
 
@@ -77,10 +75,10 @@ if (is_array($decoration) && in_array('media', $decoration)) {
                         <div class="description <?php echo ($bodyTruncate) ? $bodyTruncate : ''; ?>"><?php echo $escape($body); ?></div>
                     <?php endif; ?>
                 </div>
-            </li>
+            </div>
 
         <?php endforeach; ?>
-    </ul>
+    </div>
 
     <?php
     if ($this->linkText) :

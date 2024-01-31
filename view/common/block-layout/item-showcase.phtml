@@ -1,7 +1,3 @@
-<?php
-$decoration = $this->themeSetting('image_decoration');
-?>
-
 <div class="item-showcase">
 <?php foreach ($attachments as $attachment): ?>
     <div class="item resource">
@@ -12,11 +8,7 @@ $decoration = $this->themeSetting('image_decoration');
     ?>
         <?php
         $media = $attachment->media() ?: $item->primaryMedia();
-        if ($media):
-            $mediaClass = 'item-showcase__media';
-            if (is_array($decoration) && in_array('media', $decoration)) {
-                $mediaClass .= ' decoration';
-            }
+        if ($media): $mediaClass = 'item-showcase__media';
             echo $item->linkRaw($this->thumbnail($media, $this->thumbnailType), null, ['class' => $mediaClass]);
         endif;
         ?>

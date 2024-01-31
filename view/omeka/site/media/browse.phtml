@@ -1,7 +1,7 @@
 <?php
 $translate = $this->plugin('translate');
 $escape = $this->plugin('escapeHtml');
-$this->inlineScript()->appendFile($this->assetUrl('js/minimasonry.min.js'));
+$this->inlineScript()->appendFile($this->assetUrl('js/masonry.pkgd.min.js'));
 $this->inlineScript()->appendFile($this->assetUrl('js/browse.js'));
 $this->htmlElement('body')->appendAttribute('class', 'media resource browse');
 
@@ -42,14 +42,15 @@ if (is_array($decoration) && in_array('media', $decoration)) {
 
 <?php $this->trigger('view.browse.before'); ?>
 
-<ul class="resources <?php echo ($isGrid) ? 'resource-grid' : 'resource-list'; ?>">
-    
+<div class="resources <?php echo ($isGrid) ? 'resource-grid' : 'resource-list'; ?>">
+    <div class="grid-sizer"></div>
+    <div class="gutter-sizer"></div>
     <?php
     foreach ($medias as $media):
         $body = $bodyTerm ? $media->value($bodyTerm, ['lang' => ($valueLang)]) : $media->displayDescription(null, ($valueLang));
         $primaryMedia = $media->primaryMedia();
         ?>
-        <li class="item-set resource <?php echo ($isGrid) ? '' : 'media-object'; ?>">
+        <div class="item-set resource <?php echo ($isGrid) ? '' : 'media-object'; ?>">
             <!-- Thumbnail -->
             <?php if ($primaryMedia): ?>
                 <div class="resource__thumbnail <?php echo $decorationClass; ?>">
@@ -68,10 +69,10 @@ if (is_array($decoration) && in_array('media', $decoration)) {
                     <?php endif; ?>
                 </div>
             </div>
-        </li>
+        </div>
     <?php endforeach; ?>
 
-</ul>
+</div>
 
 <?php $this->trigger('view.browse.after'); ?>
 

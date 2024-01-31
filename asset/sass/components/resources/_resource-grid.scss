@@ -3,18 +3,46 @@
     padding-left: 0;
     position: relative;
 
+    .grid-sizer,
     .resource {
+        width: 100%;
+        
+        @media (min-width: $md) {
+            width: 49%;
+        }
+    }
+
+    .gutter-sizer {
+        width: 2%;
+    }
+
+    .resource {
+        display: flex;
+        flex-direction: column;
         background-color: $color__white;
-        border: $color__hr;
-        box-shadow: 0px 1px 6px rgba($color__black, 0.25);
+        border: 1px dashed $color__hr;
+        border-radius: 20px 0;
         position: absolute;
+        margin-bottom: 27px;
 
         &::before {
             content: none !important;
         }
 
+        @media (min-width: $md) {
+            flex-direction: row;
+        }
+
         &__thumbnail {
             line-height: 1;
+            width: 100%;
+            margin: 10px 0 0 10px;
+
+            @media (min-width: $md) {
+                width: 50%;
+                flex-shrink: 0;
+                margin: 10px 0 -15px 10px;
+            }
 
             img {
                 max-height: 324px;

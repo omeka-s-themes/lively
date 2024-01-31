@@ -20,7 +20,8 @@
     .resource.item {
         width: 100% !important;
         max-width: 325px;
-        box-shadow: 0px 1px 6px rgba($color__black, 0.25);
+        border: 1px dashed $color__gray-80;
+        border-radius: 20px 0;
         padding: 0 !important;
         display: flex;
         flex-direction: column;
@@ -42,6 +43,7 @@
             height: 150px;
             width: 100% !important;
             object-fit: cover;
+            margin: 10px 0 0 10px;
         }
     }
 }

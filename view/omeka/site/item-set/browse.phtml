@@ -1,7 +1,7 @@
 <?php
 $translate = $this->plugin('translate');
 $escape = $this->plugin('escapeHtml');
-$this->inlineScript()->appendFile($this->assetUrl('js/minimasonry.min.js'));
+$this->inlineScript()->appendFile($this->assetUrl('js/masonry.pkgd.min.js'));
 $this->inlineScript()->appendFile($this->assetUrl('js/browse.js'));
 $this->htmlElement('body')->appendAttribute('class', 'item-set resource browse');
 
@@ -15,12 +15,7 @@ $listState = ($layoutSetting == 'togglelist') ? 'disabled': '';
 $isGrid = (strpos($layoutSetting, 'grid') !== false) ? true : false;
 $bodyTerm = $this->siteSetting('browse_body_property_term');
 $bodyTruncate = $this->themeSetting('truncate_body_property');
-$decoration = $this->themeSetting('image_decoration');
-$decorationClass = '';
 
-if (is_array($decoration) && in_array('media', $decoration)) {
-    $decorationClass = $isGrid ? 'decoration' : 'decoration decoration--thumbnail';
-}
 ?>
 
 <?php echo $this->pageTitle($translate('Item sets'), 2); ?>
@@ -30,8 +25,10 @@ if (is_array($decoration) && in_array('media', $decoration)) {
 <div class="browse-controls">
     <?php if (strpos($layoutSetting, 'toggle') !== false): ?>
         <div class="layout-toggle">
-            <button type="button" aria-label="<?php echo $translate('Grid'); ?>" class="grid icon-btn o-icon-grid" <?php echo $gridState; ?>></button>
-            <button type="button" aria-label="<?php echo $translate('List'); ?>" class="list icon-btn o-icon-list" <?php echo $listState; ?>></button>
+            <?php echo $translate('View as:'); ?>
+            <button type="button" aria-label="<?php echo $translate('Grid'); ?>" class="grid" <?php echo $gridState; ?>><?php echo $translate('Grid'); ?></button>
+            <span class="layout-toggle-separator"></span>
+            <button type="button" aria-label="<?php echo $translate('List'); ?>" class="list" <?php echo $listState; ?>><?php echo $translate('List'); ?></button>        
         </div>
     <?php endif; ?>
     <?php echo $this->browse()->renderSortSelector('item_sets'); ?>
@@ -42,17 +39,18 @@ if (is_array($decoration) && in_array('media', $decoration)) {
 
 <?php $this->trigger('view.browse.before'); ?>
 
-<ul class="resources <?php echo ($isGrid) ? 'resource-grid' : 'resource-list'; ?>">
-    
+<div class="resources <?php echo ($isGrid) ? 'resource-grid' : 'resource-list'; ?>">
+    <div class="grid-sizer"></div>
+    <div class="gutter-sizer"></div>
     <?php
     foreach ($itemSets as $itemSet):
         $body = $bodyTerm ? $itemSet->value($bodyTerm, ['lang' => ($valueLang)]) : $itemSet->displayDescription(null, ($valueLang));
         $primaryMedia = $itemSet->primaryMedia();
         ?>
-        <li class="item-set resource <?php echo ($isGrid) ? '' : 'media-object'; ?>">
+        <div class="item-set resource <?php echo ($isGrid) ? '' : 'media-object'; ?>">
             <!-- Thumbnail -->
             <?php if ($primaryMedia): ?>
-                <div class="resource__thumbnail <?php echo $decorationClass; ?>">
+                <div class="resource__thumbnail">
                     <?php echo $itemSet->linkRaw($this->thumbnail($primaryMedia, 'large')); ?>
                 </div>
             <?php endif; ?>
@@ -68,10 +66,10 @@ if (is_array($decoration) && in_array('media', $decoration)) {
                     <?php endif; ?>
                 </div>
             </div>
-        </li>
+        </div>
     <?php endforeach; ?>
 
-</ul>
+</div>
 
 <?php $this->trigger('view.browse.after'); ?>
 

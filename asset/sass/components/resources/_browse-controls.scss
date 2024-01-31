@@ -1,16 +1,15 @@
 .browse-controls {
     display: flex;
     align-items: center;
-    border-bottom: 1px solid $color__hr;
     flex-wrap: wrap;
     gap: 1.5rem;
     justify-content: space-between;
-    margin-bottom: 30px;
-    padding-bottom: 30px;
+    margin-bottom: 20px;
+    padding-bottom: 20px;
 
     input[type=text],
     select {
-        padding: 8px 10px;
+        padding: 8px 15px;
         margin-bottom: 0;
     }
 
@@ -21,6 +20,30 @@
     .layout-toggle {
         display: flex;
         gap: 20px;
+
+        button {
+            background: none;
+            padding: 0;
+            color: $color__primary;
+            text-decoration: underline;
+
+            &:hover,
+            &:active,
+            &:focus {
+                outline: none;
+            }
+
+            &:disabled,
+            &[disabled]
+            &.disabled {
+                color: $color__disabled;
+                text-decoration: none;
+            }
+        }
+
+        .layout-toggle-separator {
+            border-left: 1px solid;
+        }
     }
 
     .sorting {
@@ -29,7 +52,7 @@
         margin-left: auto;
 
         button {
-            padding: 10px 15px;
+            padding: 10px 30px;
         }
     }
 
@@ -39,8 +62,7 @@
         width: 100%;
 
         a {
-            font-size: $font__xs-size;
-            text-transform: uppercase;
+            font-size: $font__sm-size;
         }
     }
 

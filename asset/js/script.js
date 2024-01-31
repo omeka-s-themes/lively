@@ -6,7 +6,9 @@ const livelyScripts = () => {
     const mainHeaderMainBar = document.querySelector('.main-header__main-bar');
     const mainSearchButton = document.querySelector('.main-search-button');
     const mainHeaderSearch = document.querySelector('.main-header-search');
-    const menuDrawer = document.getElementById('menu-drawer');
+    const mainBanner = document.querySelector('.main-banner');
+    const mainBannerImgWrapper = document.querySelector('.main-banner__image-wrapper');
+    const mainBannerImgShape = document.querySelector('.main-banner__image-shape');
     const userBar = document.getElementById('user-bar');
 
     // Resize Events
@@ -20,6 +22,7 @@ const livelyScripts = () => {
     function onResize() {
         getUserBarHeight();
         refreshBodyPaddingTop();
+        setBannerImagePosition();
     }
 
     window.addEventListener('resize', function() {
@@ -37,6 +40,29 @@ const livelyScripts = () => {
         }
     }
 
+    function setBannerImagePosition() {
+        if (mainBanner === null || mainBannerImgWrapper === null) {
+            return;
+        }
+
+        if ((mainBanner.offsetHeight + 35) > (mainBannerImgWrapper.offsetHeight / 2)) {
+            mainBannerImgWrapper.style.transform = 'translateY(-50%)';
+            mainBannerImgWrapper.style.bottom = 'auto';
+            if (mainBannerImgShape !== null) {
+                mainBannerImgShape.style.top = 0;
+                mainBannerImgShape.style.bottom = 'auto';
+            }
+
+        } else {
+            mainBannerImgWrapper.style.transform = 'none';
+            mainBannerImgWrapper.style.bottom = '-35px';
+            if (mainBannerImgShape !== null) {
+                mainBannerImgShape.style.top = 'auto';
+                mainBannerImgShape.style.bottom = '-28px';
+            }
+        }
+    }
+
     // Scrolling Events
 
     let lastKnownScrollPosition = 0;
@@ -48,10 +74,8 @@ const livelyScripts = () => {
     function onScroll(scrollPos) {
         if(scrollPos > 60 && scrollDirection == 'down') {
             mainHeader.style.top = - (userBarHeight + mainHeaderTopBar.offsetHeight) + 'px';
-            menuDrawer.style.top = mainHeaderMainBar.offsetHeight + 'px';
         } else {
             mainHeader.style.top = 0;
-            menuDrawer.style.top = mainHeader.offsetHeight + 'px';
         }
     }
 
@@ -108,19 +132,12 @@ const livelyScripts = () => {
     });
     
     // Main Header Search
-    mainSearchButton.addEventListener('click', onMainSearchButtonClick);
-
-    function onMainSearchButtonClick() {
-        mainHeaderSearch.classList.toggle('visible');
-        if (mainHeaderSearch.classList.contains('visible')) {
-            document.addEventListener('click', onDocumentClick, true);
-        } else {
-            document.removeEventListener('click', onDocumentClick, true);
-        }
-    }
+    document.addEventListener('click', onDocumentClick, true);
 
     function onDocumentClick(e) {
-        if (!mainHeaderSearch.contains(e.target)){
+        if (e.target == mainSearchButton){
+            mainHeaderSearch.classList.toggle('visible');
+        } else if (!mainHeaderSearch.contains(e.target)){
             mainHeaderSearch.classList.remove('visible');
         }
     }

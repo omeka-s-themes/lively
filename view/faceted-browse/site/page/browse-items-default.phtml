@@ -1,0 +1,43 @@
+<?php
+$translate = $this->plugin('translate');
+$escape = $this->plugin('escapeHtml');
+
+$headingTerm = $this->siteSetting('browse_heading_property_term');
+$bodyTerm = $this->siteSetting('browse_body_property_term');
+$bodyTruncate = $this->themeSetting('truncate_body_property');
+
+$filterLocale = (bool) $this->siteSetting('filter_locale_values');
+$lang = $this->lang();
+$valueLang = $filterLocale ? [$lang, ''] : null;
+?>
+
+<ul class="resource-list">
+    <?php foreach ($items as $item): ?>
+    <?php
+    $heading = $headingTerm ? $item->value($headingTerm, ['default' => $translate('[Untitled]')]) : $item->displayTitle(null, $valueLang);
+    $body = $bodyTerm ? $item->value($bodyTerm, ['lang' => ($valueLang)]) : $item->displayDescription(null, ($valueLang));
+    $primaryMedia = $item->primaryMedia();
+
+    ?>
+    <li class="item resource">
+        <!-- Thumbnail -->
+        <?php if ($primaryMedia): ?>
+            <div class="resource__thumbnail">
+                <?php echo $item->linkRaw($this->thumbnail($primaryMedia, 'square')); ?>
+            </div>
+        <?php endif; ?>
+
+        <!-- Content -->
+        <div class="resource__content">
+            <?php echo $this->ResourceTags($item); ?>
+            <!-- Metadata -->
+            <div class="resource__meta">
+                <?php echo $item->link($heading); ?>
+                <?php if ($body): ?>
+                    <div class="description <?php echo ($bodyTruncate) ? $bodyTruncate : ''; ?>"><?php echo $escape($body); ?></div>
+                <?php endif; ?>
+            </div>
+        </div>
+    </li>
+    <?php endforeach; ?>
+</ul>

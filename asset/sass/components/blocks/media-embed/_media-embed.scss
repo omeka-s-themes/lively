@@ -4,8 +4,33 @@
     margin-top: 0 !important;
     margin-bottom: 0 !important;
 
+    .resource.item {
+
+        h3 {
+            color: $color__headings;
+            font-weight: 600;
+            padding: 0 10px;
+            font-size: 1.25rem;
+        }
+    }
+
+    &.left,
+    &.right {
+
+        @media(max-width: $md) {
+            float: none !important;
+            clear: none !important;
+            max-width: none;
+            margin: 0 !important;
+        }
+    }
+
     &.left .item.resource,
     &.right .item.resource {
+
+        img {
+            margin-bottom: 0;
+        }
 
         &:first-of-type {
             padding-top: 0.6rem !important;

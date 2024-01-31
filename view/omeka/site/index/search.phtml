@@ -8,12 +8,6 @@ $filterLocale = (bool) $this->siteSetting('filter_locale_values');
 $lang = $this->lang();
 $valueLang = $filterLocale ? [$lang, ''] : null;
 
-$decoration = $this->themeSetting('image_decoration');
-$decorationClass = '';
-
-if (is_array($decoration) && in_array('media', $decoration)) {
-    $decorationClass = 'decoration decoration--thumbnail';
-}
 ?>
 
 <?php echo $this->pageTitle(sprintf($translate('Search results for “%s”'), $query)); ?>
@@ -45,7 +39,7 @@ if (is_array($decoration) && in_array('media', $decoration)) {
                     <li class="item resource">
                         <!-- Thumbnail -->
                         <?php if ($primaryMedia): ?>
-                            <div class="resource__thumbnail <?php echo $decorationClass; ?>">
+                            <div class="resource__thumbnail">
                                 <?php echo $resource->linkRaw($this->thumbnail($primaryMedia, 'large')); ?>
                             </div>
                         <?php endif; ?>

@@ -5,8 +5,8 @@
     top: 0;
     left: 0;
     z-index: 1040;
-    //box-shadow: 0px 4px 6px 2px rgba(0,0,0,0.11);
     border-bottom: 1px solid $color__secondary;
+    border-top: 5px solid $color__secondary;
     transition: top 0.3s ease-out;
 
     &__top-bar {
@@ -69,6 +69,7 @@
             .top-bar__advanced-search {
                 display: flex;
                 align-items: center;
+                margin-left: auto;
 
                 &::after {
                     @include font-awesome;
@@ -98,9 +99,11 @@
     &__site-title {
         flex-shrink: 0;
         max-width: 50%;
+        order: 0;
 
         @media (min-width: $lg) {
             max-width: 30%;
+            order: initial;
         }
 
         a {

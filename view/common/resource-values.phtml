@@ -58,10 +58,6 @@ foreach ($values as $term => $propertyData):
             if ('resource' == $valueType || strpos($valueType, 'resource') !== false) {
                 $class[] = 'resource';
                 $class[] = $escape($value->valueResource()->resourceName());
-
-                if ('media' == $value->valueResource()->resourceName() && is_array($decoration) && in_array('media', $decoration)) {
-                    $class[] = 'decoration decoration--thumbnail';
-                }
             } elseif ('uri' == $valueType) {
                 $class[] = 'uri';
             }

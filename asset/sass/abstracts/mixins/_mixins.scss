@@ -17,6 +17,7 @@
     margin-left: auto;
     margin-right: auto;
     padding: 0 15px;
+    position: relative;
     
     @media (min-width: $md) {
         padding: 0 30px;
@@ -42,7 +43,7 @@
     -webkit-appearance: none;
     border-radius: 30px;
     cursor: pointer;
-    padding: 10px 40px;
+    padding: 12px 30px;
     text-decoration: none;
     transition: all 0.3s ease;
 }

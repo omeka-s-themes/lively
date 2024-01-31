@@ -9,12 +9,17 @@
         background-color: transparent;
         color: $color__primary;
         flex-shrink: 0;
-        font-size: $font__xs-size;
-        font-weight: 600;
         margin-bottom: 1.875rem;
         margin-left: auto;
-        padding: 0 0 0 20px;
-        text-decoration: underline;
+        padding: 0 10px;
+
+        &::after {
+            @include font-awesome;
+            content: "\f13a";
+            display: inline-block;
+            font-size: 1.2rem;
+            margin-left: 7px;
+        }
 
         &:hover,
         &:focus {
@@ -32,7 +37,6 @@
         flex-direction: column-reverse;
         justify-content: space-between;
         padding: 0.7rem 0;
-        border-bottom: 1px solid $color__hr;
 
         @media (min-width: $lg) {
             align-items: center;

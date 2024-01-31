@@ -23,7 +23,7 @@
         left: 0;
         bottom: 10px;
         transition: opacity 0.3s ease-out;
-        z-index: 2;
+        z-index: 10;
 
         @media (min-width: $lg) {
             bottom: 5px;
@@ -31,9 +31,8 @@
 
         &__wrapper {
             background-color: $color__white;
-            border: 1px solid $color__hr;
+            border: 1px dashed $color__hr;
             border-radius: 10px 10px 10px 0;
-            box-shadow: 0px 1px 20px rgba($color__black, 0.25);
             font-size: $font__xs-size;
             width: 230px;
             height: auto;
@@ -72,6 +71,7 @@
             &.resource.media img {
                 display: block;
                 max-width: 80px;
+                border-radius: 10px 0 !important;
             }
         }
     }
