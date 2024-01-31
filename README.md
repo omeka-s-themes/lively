@@ -11,26 +11,34 @@ For more advanced use, such as customizing the theme with Sass, you'll need to i
 
 ## Theme settings
 
-### Theme's Primary Color
-The color to be used as the theme's primary color. The default value is #F04784 (RGB 240, 71, 132).
+### General Settings
 
-### Theme's Secondary Color
-The color to be used as the theme's secondary color. The default value is #4D1068 (RGB 77, 16, 104).
+- Theme's Primary Color: The color to be used as the theme's primary color. The default value is #F04784 (RGB 240, 71, 132).
 
-### Top Navigation Depth
-Maximum number of levels to show in the site's top navigation bar. Set to 0 to show all levels.
+- Theme's Secondary Color: The color to be used as the theme's secondary color. The default value is #4D1068 (RGB 77, 16, 104).
 
-### Logo
-A custom logo (SVG, JPG, PNG)
+- Theme's Accent Color: The color to be used as the theme's accent color for links and accents. The default value is #4785F0 (71, 133, 240).
+
+- Theme's complementary Color: The color to use on decorative shapes. The default value is #F0B247 (240, 178, 71).
+
+### Contact Info
+- Location
+- Phone number
+- Email
+- Show contact info in Top Header and/or Footer
+
+### Header
+
+- Top Navigation Depth: Maximum number of levels to show in the site's top navigation bar. Set to 0 to show all levels.
+- Logo: A custom logo (SVG, JPG, PNG)
 
 ### Banner
 - Banner image
 - Heading
 - Description
+- Button Label
+- Button Link
 - Content position
-- Banner width
-- Banner height
-- Banner height for mobile devices
 - Banner image vertical position within the wrapper
 - Banner image horizontal position within the wrapper
 
@@ -38,9 +46,10 @@ A custom logo (SVG, JPG, PNG)
 - Footer Logo
 - Footer Site description
 - Footer Menu
+- Footer Menu Title
 - Footer Menu Depth
+- Footer Content Title
 - Footer Content
-- Footer Copyright
 
 ### Social Media
 - Facebook
@@ -50,11 +59,18 @@ A custom logo (SVG, JPG, PNG)
 - Youtube
 - Mastodon
 
+### Footer Bottom
+- Copyright
+- Terms Title
+- Terms URL
+- Privacy Policy Title
+- Privacy Policy URL
+
 ### Image Settings
-- Decorative border for Media and/or Assets
+- Decorative border for Banner, Media and/or Assets
 
 ### Resource Tags
-- Show tags based on Resource Type or Class
+- Show tags based on Resource Type and/or Class
 
 ### Browse Settings
 - Layout for Browse Pages
@@ -129,7 +145,10 @@ sass
     │   ├── facets
     │   ├── footer
     │   ├── header
+    │   │   ├── header
+    │   │   ├── search
     │   ├── linked-resources
+    │   ├── mapping    
     │   ├── metadata
     │   ├── navigation
     │   ├── pagination
