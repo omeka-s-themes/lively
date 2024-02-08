@@ -3,6 +3,13 @@ use Laminas\Form\Element\Select;
 
 $this->inlineScript()->appendFile($this->assetUrl('js/accordion.js'));
 
+$translate = $this->plugin('translate');
+$escape = $this->plugin('escapeHtml');
+
+$filterLocale = (bool) $this->siteSetting('filter_locale_values');
+$lang = $this->lang();
+$valueLang = $filterLocale ? [$lang, ''] : null;
+
 // Set up pagination.
 //$pagination = $this->pagination(null, $totalCount, $page, $perPage);
 $fragment = 'resources-linked';
@@ -47,6 +54,7 @@ foreach ($resourcePropertiesAll as $type => $resourceProperties) {
     }
 }
 $resourcePropertiesSelect->setValueOptions($valueOptions);
+$headingTerm = $this->siteSetting('browse_heading_property_term');
 ?>
 <div id="linked-resources">
 
@@ -88,11 +96,29 @@ $resourcePropertiesSelect->setValueOptions($valueOptions);
             id="accordion__panel-<?php echo $values[0]['property_id']; ?>"
             role="region"
             aria-labelledby="accordion-<?php echo $values[0]['property_id']; ?>">
-            <?php foreach ($values as $value): ?>
+
+            <?php foreach ($values as $value) :
+                
+                $resource = $value['val']->resource();
+                $heading = $headingTerm ? $resource->value($headingTerm, ['default' => $translate('[Untitled]'), 'lang' => $valueLang]) : $resource->displayTitle(null, ($valueLang));
+                $thumbnail = $this->thumbnail($resource, 'square');
+                ?>
+                
                 <div class="linked-resource">
-                    <span><?php echo $value['val']->resource()->linkPretty('square', null, null, null, $valueLang); ?></span>
-                    <?php echo $this->ResourceTags($value['val']->resource()); ?>
+                    <!-- Content -->
+                    <div class="resource__content">
+                        <?php echo $this->ResourceTags($resource); ?>
+                        <?php echo $resource->link($escape($heading)); ?>
+                    </div>
+
+                    <!-- Thumbnail -->
+                    <?php if ($thumbnail) : ?>
+                        <div class="resource__thumbnail">
+                            <?php echo $resource->linkRaw($thumbnail); ?>
+                        </div>
+                    <?php endif; ?>
                 </div>
+                
             <?php endforeach; ?>
         </div>
     </div>

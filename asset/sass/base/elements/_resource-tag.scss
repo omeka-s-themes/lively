@@ -1,6 +1,9 @@
 .resource-tags {
     display: flex;
     flex-shrink: 0;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-bottom: 15px;
 
     .resource-tag {
         display: flex;
@@ -10,13 +13,7 @@
         border-radius: 20px;
         font-size: $font__xs-size;
         font-weight: 600;
-        margin-bottom: 15px;
-        margin-right: 10px;
         padding: 5px 10px;
-    
-        &:last-child {
-            margin-right: 0;
-        }
 
         .resource-tag-color {
             display: block;
