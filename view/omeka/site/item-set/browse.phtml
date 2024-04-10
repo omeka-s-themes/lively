@@ -45,13 +45,13 @@ $bodyTruncate = $this->themeSetting('truncate_body_property');
     <?php
     foreach ($itemSets as $itemSet):
         $body = $bodyTerm ? $itemSet->value($bodyTerm, ['lang' => ($valueLang)]) : $itemSet->displayDescription(null, ($valueLang));
-        $primaryMedia = $itemSet->primaryMedia();
+        $thumbnail = $this->thumbnail($itemSet, 'large');
         ?>
         <div class="item-set resource <?php echo ($isGrid) ? '' : 'media-object'; ?>">
             <!-- Thumbnail -->
-            <?php if ($primaryMedia): ?>
+            <?php if ($thumbnail): ?>
                 <div class="resource__thumbnail">
-                    <?php echo $itemSet->linkRaw($this->thumbnail($primaryMedia, 'large')); ?>
+                    <?php echo $itemSet->linkRaw($thumbnail); ?>
                 </div>
             <?php endif; ?>
 

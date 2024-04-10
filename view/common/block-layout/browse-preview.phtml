@@ -68,7 +68,7 @@ $bodyTerm = $this->siteSetting('browse_body_property_term');
                 <div class="resource__content">
                     <?php if ($showHeading) : ?>
                         <?php echo $this->ResourceTags($resource); ?>
-                        <?php echo $resource->link($escape($heading)); ?>
+                        <?php echo $resource->link($heading); ?>
                     <?php endif; ?>
 
                     <?php if ($showBody && $body) : ?>
