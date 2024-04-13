@@ -1,9 +1,6 @@
 <?php
 $siteTitle = $site->title();
 $userBar = $this->userBar();
-$header_layout = ($this->themeSetting('header_layout')) ?? 'inline';
-$body_class = 'main-header--' . $header_layout;
-$bannerHeightMobile = $this->themeSetting('banner_height_mobile');
 $bannerHeading = $this->themeSetting('banner_heading');
 $bannerDescription = $this->themeSetting('banner_description');
 $bannerHeightProperty = $bannerHeading || $bannerDescription ? 'min-height' : 'height';
@@ -49,18 +46,11 @@ if ($userBar) {
 				--accent: <?php echo $accentColor; ?>;
 				--complementary: <?php echo $complementaryColor; ?>;
 			}
-			
-			<?php if($bannerHeightMobile): ?>
-				@media screen and (max-width:768px) {
-					.banner {
-						<?php echo "{$bannerHeightProperty}: {$bannerHeightMobile} !important;"; ?>
-					}
-				}
-			<?php endif; ?>
+
 		</style>
 	</head>
 
-	<?php echo $this->htmlElement('body')->appendAttribute('class', $body_class); ?>
+	<?php echo $this->htmlElement('body'); ?>
 		<a id="skipnav" href="#content"><?php echo $this->translate('Skip to main content'); ?></a>
 
 		<?php echo $this->partial('common/header', ['userBar' => $userBar, 'site' => $site]); ?>

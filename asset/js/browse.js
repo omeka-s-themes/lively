@@ -8,12 +8,24 @@ const browseScripts = () => {
         const initMasonryGrid = () => {
             if (resourcesSet.classList.contains('resource-grid')) {
                 // Masonry
-                var msnry = new Masonry( resourcesSet, {
-                    itemSelector: '.resource',
-                    columnWidth: '.grid-sizer',
-                    gutter: '.gutter-sizer',
-                    percentPosition: true,
-                });
+                const createMasonryInstance = () => {
+                    var msnry = new Masonry(resourcesSet, {
+                        itemSelector: '.resource',
+                        columnWidth: '.grid-sizer',
+                        gutter: '.gutter-sizer',
+                        percentPosition: true,
+                    });
+
+                    resourcesSet.style.opacity = 1;
+                }
+
+                if (document.readyState === 'complete') {
+                    createMasonryInstance();
+                } else {
+                    window.onload = function () {
+                        createMasonryInstance();
+                    }
+                }
             }
         }
 
