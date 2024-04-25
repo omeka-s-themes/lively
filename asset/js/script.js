@@ -6,6 +6,7 @@ const livelyScripts = () => {
     const mainHeaderMainBar = document.querySelector('.main-header__main-bar');
     const mainSearchButton = document.querySelector('.main-search-button');
     const mainHeaderSearch = document.querySelector('.main-header-search');
+    const mainSearchInput = mainHeaderSearch.querySelector('#fulltext-search-input');
     const mainBanner = document.querySelector('.main-banner');
     const mainBannerImgWrapper = document.querySelector('.main-banner__image-wrapper');
     const mainBannerImgShape = document.querySelector('.main-banner__image-shape');
@@ -137,6 +138,9 @@ const livelyScripts = () => {
     function onDocumentClick(e) {
         if (e.target == mainSearchButton){
             mainHeaderSearch.classList.toggle('visible');
+            if (mainHeaderSearch.classList.contains('visible')) {
+                mainSearchInput.focus();
+            }
         } else if (!mainHeaderSearch.contains(e.target)){
             mainHeaderSearch.classList.remove('visible');
         }
