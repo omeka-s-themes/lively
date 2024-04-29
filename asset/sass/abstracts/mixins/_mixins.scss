@@ -55,7 +55,8 @@
     color: $color__white;
     
     &:hover:not(.disabled) {
-        background-color: $color__secondary;
+        background-color: $color__primary-dark;
+        color: $color__white;
     }
     
     &:focus {

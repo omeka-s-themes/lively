@@ -3,4 +3,13 @@
     .tl-slidenav-previous:focus {
         outline: none;
     }
+
+    .tl-timemarker .tl-timemarker-content-container .tl-timemarker-content .tl-timemarker-text h2.tl-headline,
+    .tl-timemarker .tl-timemarker-content-container .tl-timemarker-content .tl-timemarker-text h2.tl-headline p {
+        color: #666;
+    }
+
+    .tl-attribution a {
+        color: #707070 !important;
+    }
 }

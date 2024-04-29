@@ -13,11 +13,11 @@ For more advanced use, such as customizing the theme with Sass, you'll need to i
 
 ### General Settings
 
-- Theme's Primary Color: The color to be used as the theme's primary color. The default value is #F04784 (RGB 240, 71, 132).
+- Theme's Primary Color: The color to be used as the theme's primary color. The default value is #d62d6a (RGB 214, 45, 106).
 
 - Theme's Secondary Color: The color to be used as the theme's secondary color. The default value is #4D1068 (RGB 77, 16, 104).
 
-- Theme's Accent Color: The color to be used as the theme's accent color for links and accents. The default value is #4785F0 (71, 133, 240).
+- Theme's Accent Color: The color to be used as the theme's accent color for links and accents. The default value is #0a4f9e (10, 79, 158).
 
 - Theme's complementary Color: The color to use on decorative shapes. The default value is #F0B247 (240, 178, 71).
 
