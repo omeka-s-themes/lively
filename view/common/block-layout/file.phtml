@@ -1,4 +1,5 @@
 <?php
+$hyperlink  = $this->plugin('hyperlink');
 $decoration = $this->themeSetting('image_decoration');
 $classes    = $classes ?? [];
 if (isset($alignmentClass)) {
@@ -14,10 +15,27 @@ if (isset($alignmentClass)) {
             <?php
             $media = $attachment->media() ?: $item->primaryMedia();
             if ($media):
-                echo $media->render([
-                    'thumbnailType' => $thumbnailType,
-                    'link' => $link,
-                ]);
+                if ($mediaDisplay === 'thumbnail') {
+                    switch ($link) {
+                        case 'original':
+                            $url = $media->originalUrl();
+                            break;
+                        case 'item':
+                            $url = $item->url();
+                            break;
+                        case 'media':
+                            $url = $media->url();
+                            break;
+                        default:
+                            throw new \InvalidArgumentException(sprintf('Invalid link type "%s"', $linkType));
+                    }
+                    echo $hyperlink->raw($this->thumbnail($media, $thumbnailType), $url);
+                } else {
+                    echo $media->render([
+                        'thumbnailType' => $thumbnailType,
+                        'link' => $link,
+                    ]);
+                }
             endif;
             ?>
             <?php if ($showTitleOption === 'item_title'): ?>
