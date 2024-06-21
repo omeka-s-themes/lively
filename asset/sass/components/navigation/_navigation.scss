@@ -182,7 +182,7 @@
                         font-weight: 700;
                         color: $color__black;
 
-                        &::after {
+                        &:has(+ ul)::after {
                             @include font-awesome;
                             content: "\f054" !important;
                             display: inline;
