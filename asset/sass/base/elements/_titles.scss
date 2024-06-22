@@ -1,14 +1,28 @@
-.title {
-    display: flex;
-    gap: 10px;
+.title,
+.block-pageTitle {
+    border-radius: 5px 0 0 5px;
+    margin-bottom: 1.875rem !important;
+    padding-left: 18px;
+    position: relative;
 
     &::before {
         display: block;
-        align-self: stretch;
         content: "";
         background-color: $color__primary;
-        width: 8px;
         border-radius: 5px 0 0 5px;
-        flex-shrink: 0;
+        height: 100%;
+        left: 0;
+        position: absolute;
+        top: 0;
+        width: 8px;
+    }
+
+    .title {
+        margin-bottom: 0;
+        padding-left: 0;
+
+        &::before {
+            content: none;
+        }
     }
 }
