@@ -1,26 +1,13 @@
-<?php
-    $contactInfoPosition = $this->themeSetting('contact_info_position');
-    $contactInfoLocation = $this->themeSetting('contact_info_location') ?? '';
-    $contactInfoPhone = $this->themeSetting('contact_info_phone') ?? '';
-    $contactInfoEmail = $this->themeSetting('contact_info_email') ?? '';
-?>
-
-<?php if (is_array($contactInfoPosition) 
-            && in_array('footer', $contactInfoPosition)
-            && ($contactInfoLocation || $contactInfoPhone || $contactInfoEmail)) : ?>
-
-    <div class="footer-contact-info container">
-        <div class="footer-contact-info__content">
-            <?php if ($contactInfoLocation) : ?>
-                <h6 class="contact_info contact_info_location"><?php echo $contactInfoLocation; ?></h6>
-            <?php endif; ?>
-            <?php if ($contactInfoPhone) : ?>
-                <h6 class="contact_info contact_info_phone"><a href="tel:<?php echo $contactInfoPhone; ?>"><?php echo $contactInfoPhone; ?></a></h6>
-            <?php endif; ?>
-            <?php if ($contactInfoEmail) : ?>
-                <h6 class="contact_info contact_info_email"><a target="_blank" href="mailto:<?php echo $contactInfoEmail; ?>"><?php echo $contactInfoEmail; ?></a></h6>
-            <?php endif; ?>
-        </div>
+<div class="footer-contact-info container">
+    <div class="footer-contact-info__content">
+        <?php if ($contactInfo['location']) : ?>
+            <h6 class="contact_info contact_info_location"><?php echo $contactInfo['location']; ?></h6>
+        <?php endif; ?>
+        <?php if ($contactInfo['phone']) : ?>
+            <h6 class="contact_info contact_info_phone"><a href="tel:<?php echo $contactInfo['phone']; ?>"><?php echo $contactInfo['phone']; ?></a></h6>
+        <?php endif; ?>
+        <?php if ($contactInfo['email']) : ?>
+            <h6 class="contact_info contact_info_email"><a target="_blank" href="mailto:<?php echo $contactInfo['email']; ?>"><?php echo $contactInfo['email']; ?></a></h6>
+        <?php endif; ?>
     </div>
-
-<?php endif; ?>
+</div>

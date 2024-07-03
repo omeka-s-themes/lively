@@ -6,6 +6,10 @@
     flex-direction: column;
     font-size: 0.875rem;
 
+    &.has-contact-info {
+        margin-top: 40px;
+    }
+
     .footer-contact-info {
         margin-top: -40px;
 

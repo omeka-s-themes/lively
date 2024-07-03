@@ -1,7 +1,25 @@
-<footer class="main-footer">
+<?php
+$contactInfo['position'] = $this->themeSetting('contact_info_position');
+$contactInfo['location'] = $this->themeSetting('contact_info_location') ?? '';
+$contactInfo['phone'] = $this->themeSetting('contact_info_phone') ?? '';
+$contactInfo['email'] = $this->themeSetting('contact_info_email') ?? '';
+$hasContactInfo = false;
 
-	<?php echo $this->partial('common/footer/footer-contact-info'); ?>
-	<?php echo $this->partial('common/footer/footer-top'); ?>
-	<?php echo $this->partial('common/footer/footer-bottom'); ?>
+if (is_array($contactInfo['position'])
+    && in_array('footer', $contactInfo['position'])
+    && ($contactInfo['location'] || $contactInfo['phone'] || $contactInfo['email'])) {
+    $hasContactInfo = true;
+}
+
+?>
+
+<footer class="main-footer <?php echo $hasContactInfo ? 'has-contact-info' : ''; ?>">
+
+    <?php if ($hasContactInfo) : ?>
+        <?php echo $this->partial('common/footer/footer-contact-info', ['contactInfo' => $contactInfo]); ?>
+    <?php endif; ?>
+
+    <?php echo $this->partial('common/footer/footer-top'); ?>
+    <?php echo $this->partial('common/footer/footer-bottom'); ?>
 
 </footer>
