@@ -25,4 +25,10 @@
             content: none;
         }
     }
+
+    .slick-slide & {
+        &::before {
+            content: none;
+        }
+    }
 }

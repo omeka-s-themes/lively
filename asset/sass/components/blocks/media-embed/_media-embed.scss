@@ -23,7 +23,15 @@
                 width: 100%;
                 object-fit: cover;
             }
+
+            .decoration {
+                width: 100%;
+            }
         }
+    }
+
+    &.layout-horizontal {
+        align-items: start !important;
     }
 }
 

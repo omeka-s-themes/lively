@@ -3,6 +3,7 @@
     $contactInfoPhone = $this->themeSetting('contact_info_phone') ?? '';
     $contactInfoEmail = $this->themeSetting('contact_info_email') ?? '';
     $contactInfoLocation = $this->themeSetting('contact_info_location') ?? '';
+    $contactInfoLocationLink = $this->themeSetting('contact_info_location_link') ?? '';
 ?>
 
 <div class="main-header__top-bar">
@@ -10,7 +11,17 @@
         <?php if (is_array($contactInfoPosition) && in_array('top_header', $contactInfoPosition)) : ?>
             <div class="top-bar__info">
                 <?php if ($contactInfoLocation) : ?>
-                    <div class="contact_info contact_info_location"><?php echo $contactInfoLocation; ?></div>
+                    <?php if ($contactInfoLocationLink) : ?>
+                        <a class="contact_info contact_info_location" target="_blank" href="<?php echo $contactInfoLocationLink; ?>">
+                    <?php else : ?>
+                        <div class="contact_info contact_info_location">
+                    <?php endif; ?>
+                            <?php echo $contactInfoLocation; ?>
+	                <?php if ($contactInfoLocationLink) : ?>
+                        </a>
+	                <?php else : ?>
+                        </div>
+		            <?php endif; ?>
                 <?php endif; ?>
                 <?php if ($contactInfoPhone) : ?>
                     <div class="contact_info contact_info_phone"><a href="tel:<?php echo $contactInfoPhone; ?>"><?php echo $contactInfoPhone; ?></a></div>
