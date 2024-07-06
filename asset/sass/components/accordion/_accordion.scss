@@ -26,7 +26,8 @@
         &:hover,
         &:active,
         &:focus {
-            background: none !important;
+            background-color: $color__gray-95 !important;
+            color: $color__black !important;
             outline: 1px dashed Highlight;
         }
     }
