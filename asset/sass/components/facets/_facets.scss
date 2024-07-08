@@ -216,6 +216,10 @@
             tr {
                 border-bottom: 1px dashed $color__gray-80;
 
+                &:last-child {
+                    border-bottom: none;
+                }
+
                 td {
                     padding: 0.75rem;
 
