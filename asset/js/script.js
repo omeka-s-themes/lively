@@ -146,6 +146,22 @@ const livelyScripts = () => {
             mainHeaderSearch.classList.remove('visible');
         }
     }
+
+    // Forms
+    const forms = document.querySelectorAll('form');
+    forms.forEach(form => {
+        const checkboxes = form.querySelectorAll('input[type="checkbox"]');
+        checkboxes.forEach(checkbox => {
+            if (checkbox.parentElement.classList.contains('inputs')) {
+                const previousElementSibling = checkbox.parentElement.previousElementSibling;
+                if (previousElementSibling && previousElementSibling.classList.contains('field-meta')) {
+                    checkbox.parentElement.append(previousElementSibling);
+                    checkbox.style.float = 'left';
+                    checkbox.style.marginRight = '10px';
+                }
+            }
+        });
+    });
 }
 
 if (document.readyState === 'loading') {
