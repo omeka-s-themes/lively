@@ -33,6 +33,14 @@
     &.layout-horizontal {
         align-items: start !important;
     }
+
+    .decoration {
+        width: 100%;
+
+        .iiif_presentation {
+            padding: 0 19px 19px 0;
+        }
+    }
 }
 
 .file {
