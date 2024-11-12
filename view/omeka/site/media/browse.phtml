@@ -27,6 +27,8 @@ if (is_array($decoration) && in_array('media', $decoration)) {
 
 <?php echo $this->searchFilters(); ?>
 
+<?php echo $this->pagination(); ?>
+
 <div class="browse-controls">
     <?php if (strpos($layoutSetting, 'toggle') !== false): ?>
         <div class="layout-toggle">

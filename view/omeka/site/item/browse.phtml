@@ -86,6 +86,8 @@ $bodyTruncate = $this->themeSetting('truncate_body_property');
 
 <?php echo $this->searchFilters(); ?>
 
+<?php echo $this->pagination(); ?>
+
 <div class="browse-controls">
     <?php if (strpos($layoutSetting, 'toggle') !== false): ?>
         <div class="layout-toggle">
