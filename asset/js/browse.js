@@ -35,6 +35,17 @@ const browseScripts = () => {
             layoutToggle.addEventListener('click', (e) => {
                 const layoutToggleDisabled = e.currentTarget.parentElement.querySelector('.layout-toggle button:disabled');
                 layoutToggleDisabled.removeAttribute('disabled');
+
+                const url = new URL(window.location.href);
+                url.searchParams.set('view', e.currentTarget.classList);
+                window.history.pushState({}, '', url);
+                const navLinks = document.querySelectorAll('.pager-wrapper a.previous, .pager-wrapper a.next');
+                navLinks.forEach((navLink) => {
+                    let navLinkUrl = new URL(navLink.href);
+                    navLinkUrl.searchParams.set('view', e.currentTarget.classList);
+                    navLink.href = navLinkUrl.toString();
+                });
+
                 e.currentTarget.setAttribute('disabled', true);
                 resourcesSet.classList.toggle('resource-list');
                 resourcesSet.classList.toggle('resource-grid');

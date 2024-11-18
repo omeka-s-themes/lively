@@ -18,6 +18,18 @@ $bodyTruncate = $this->themeSetting('truncate_body_property');
 $decoration = $this->themeSetting('image_decoration');
 $decorationClass = '';
 
+if (isset($_GET['view'])) {
+	if ('list' === $_GET['view']) {
+		$gridState = '';
+		$listState = 'disabled';
+		$isGrid = false;
+	} else {
+		$gridState = 'disabled';
+		$listState = '';
+		$isGrid = true;
+	}
+}
+
 if (is_array($decoration) && in_array('media', $decoration)) {
     $decorationClass = $isGrid ? 'decoration' : 'decoration decoration--thumbnail';
 }
