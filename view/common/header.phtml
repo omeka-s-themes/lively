@@ -1,3 +1,7 @@
+<?php
+$navDepth = (int) $this->themeSetting('nav_depth') ? (int) $this->themeSetting('nav_depth') -1 : -1;
+?>
+
 <header class="main-header">
 
 	<?php echo $userBar; ?>
@@ -20,7 +24,7 @@
 				<?php
 				echo $site->publicNav()->menu()->renderMenu(null, [
 					'addClassToListItem' => true,
-					'maxDepth' => $this->themeSetting('nav_depth') - 1
+					'maxDepth' => $navDepth
 				]);
 				?>
 			</div>
