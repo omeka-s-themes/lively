@@ -28,6 +28,12 @@
 
         > .property {
             margin-bottom: 1.25rem;
+
+            &::after {
+                content: "";
+                display: table;
+                clear: both;
+            }
     
             dt {
                 margin-bottom: 0.5rem;
@@ -43,6 +49,7 @@
             }
     
             dd {
+                display: flex;
                 margin: 0 0 1rem;
                 word-break: break-word;
                 overflow-wrap: anywhere;
@@ -52,6 +59,10 @@
                     @media (min-width: $md) {
                         margin-left: 160px;
                     }
+                }
+
+                &:last-child {
+                    margin-bottom: 0;
                 }
             }
     
