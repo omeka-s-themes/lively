@@ -11,6 +11,39 @@ const livelyScripts = () => {
     const mainBannerImgWrapper = document.querySelector('.main-banner__image-wrapper');
     const mainBannerImgShape = document.querySelector('.main-banner__image-shape');
     const userBar = document.getElementById('user-bar');
+    const menuDrawer = document.getElementById('menu-drawer');
+
+    // Scrolling Events
+
+    let lastKnownScrollPosition = 0;
+    let ticking = false;
+    let scrollDirection = 'up';
+
+    function onScroll(scrollPos) {
+        if(scrollPos > 60 && scrollDirection == 'down') {
+            mainHeader.style.top = - (userBarHeight + mainHeaderTopBar.offsetHeight) + 'px';
+            menuDrawer.style.top = mainHeaderMainBar.offsetHeight + 'px';
+            menuDrawer.style.height = 'calc(100% - ' + mainHeaderMainBar.offsetHeight + 'px)';
+        } else {
+            mainHeader.style.top = 0;
+            menuDrawer.style.top = mainHeader.offsetHeight + 'px';
+            menuDrawer.style.height = 'calc(100% - ' + mainHeader.offsetHeight + 'px)';
+        }
+    }
+
+    document.addEventListener('scroll', (event) => {
+        scrollDirection = Math.max(lastKnownScrollPosition, window.scrollY) == lastKnownScrollPosition ? 'up': 'down';
+        lastKnownScrollPosition = window.scrollY;
+
+        if (!ticking) {
+            window.requestAnimationFrame(() => {
+                onScroll(lastKnownScrollPosition);
+                ticking = false;
+            });
+
+            ticking = true;
+        }
+    });
 
     // Resize Events
 
@@ -23,6 +56,7 @@ const livelyScripts = () => {
     function onResize() {
         getUserBarHeight();
         refreshBodyPaddingTop();
+        onScroll(lastKnownScrollPosition);
         setBannerImagePosition();
     }
 
@@ -64,36 +98,6 @@ const livelyScripts = () => {
             }
         }
     }
-
-    // Scrolling Events
-
-    let lastKnownScrollPosition = 0;
-    let ticking = false;
-    let scrollDirection = 'up';
-
-    onScroll();
-
-    function onScroll(scrollPos) {
-        if(scrollPos > 60 && scrollDirection == 'down') {
-            mainHeader.style.top = - (userBarHeight + mainHeaderTopBar.offsetHeight) + 'px';
-        } else {
-            mainHeader.style.top = 0;
-        }
-    }
-
-    document.addEventListener('scroll', (event) => {
-        scrollDirection = Math.max(lastKnownScrollPosition, window.scrollY) == lastKnownScrollPosition ? 'up': 'down';
-        lastKnownScrollPosition = window.scrollY;
-
-        if (!ticking) {
-            window.requestAnimationFrame(() => {
-                onScroll(lastKnownScrollPosition);
-                ticking = false;
-            });
-
-            ticking = true;
-        }
-    });
 
     // Annotations tooltip position
 
