@@ -4,9 +4,10 @@ const livelyScripts = () => {
     const mainHeader = document.querySelector('.main-header');
     const mainHeaderTopBar = document.querySelector('.main-header__top-bar');
     const mainHeaderMainBar = document.querySelector('.main-header__main-bar');
+    const mainNavigation = document.querySelector('.main-navigation');
     const mainSearchButton = document.querySelector('.main-search-button');
     const mainHeaderSearch = document.querySelector('.main-header-search');
-    const mainSearchInput = mainHeaderSearch.querySelector('#fulltext-search-input');
+    const mainSearchInput = mainHeaderSearch.querySelector('input[type="text"]');
     const mainBanner = document.querySelector('.main-banner');
     const mainBannerImgWrapper = document.querySelector('.main-banner__image-wrapper');
     const mainBannerImgShape = document.querySelector('.main-banner__image-shape');
@@ -57,6 +58,7 @@ const livelyScripts = () => {
         getUserBarHeight();
         refreshBodyPaddingTop();
         onScroll(lastKnownScrollPosition);
+        setSearchButtonPosition();
         setBannerImagePosition();
     }
 
@@ -73,6 +75,14 @@ const livelyScripts = () => {
     function getUserBarHeight() {
         if (userBar) {
             userBarHeight = userBar.offsetHeight;
+        }
+    }
+
+    function setSearchButtonPosition() {
+        if (window.innerWidth < 1200) {
+            mainHeaderMainBar.insertBefore(mainSearchButton, mainNavigation);
+        } else {
+            mainHeaderMainBar.insertBefore(mainSearchButton, mainHeaderSearch);
         }
     }
 
@@ -150,6 +160,14 @@ const livelyScripts = () => {
             mainHeaderSearch.classList.remove('visible');
         }
     }
+
+    mainHeaderSearch.addEventListener('focusout', (e) => {
+        setTimeout(() => {
+            if (!mainHeaderSearch.contains(document.activeElement)) {
+                mainHeaderSearch.classList.remove('visible');
+            }
+        }, 0);
+    });
 
     // Forms
     const forms = document.querySelectorAll('form');
