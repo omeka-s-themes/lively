@@ -17,6 +17,9 @@ $this->htmlElement('body')->appendAttribute('class', 'item resource browse hiera
 if ($hierarchyGrouping->getLabel()) {
 	echo $this->pageTitle($hierarchyGrouping->getLabel(), 2);
 	$hierarchyHeadingLevel = 'h3';
+} else if ($hierarchyGrouping->getItemSet()) {
+    echo $this->pageTitle($hierarchyGrouping->getItemSet()->displayTitle(null, $valueLang), 2);
+    $hierarchyHeadingLevel = 'h3';
 }
 ?>
 
@@ -99,20 +102,27 @@ if ($hierarchyGrouping->getLabel()) {
 			}
 
 			if (!is_null($itemSet)) {
-				$itemSetCount = $this->hierarchyHelper()->itemSetCount($grouping, $allGroupings);
-				// Show itemSet count if hierarchy_show_count checked in config
-				$itemSetShow = $this->siteSetting('hierarchy_show_count') ? $itemSetCount : '';
-				// Bold current page grouping
-				if (!empty($groupingLabel)) {
-					if ($grouping->id() == $hierarchyGrouping->id()) {
-                    	echo '<li><b>' . $this->hyperlink($groupingLabel, $this->url('site/hierarchy', ['site-slug' => $this->currentSite()->slug(), 'grouping-id' => $grouping->id()])) . '</b>' . $itemSetShow;
-                	} else if ($itemSetCount == null || (strpos($groupingLabel, '(Private)') !== false)) {
-                    	// Don't link to hierarchies without items to display (private etc.)
-                    	echo '<li>' . $groupingLabel;
-                	} else {
-                    	echo '<li>' . $this->hyperlink($groupingLabel, $this->url('site/hierarchy', ['site-slug' => $this->currentSite()->slug(), 'grouping-id' => $grouping->id()])) . $itemSetShow;
-                	}
-				}
+				// Point directly to associated item set if hierarchy_link_itemSet checking in config
+	            if ($this->siteSetting('hierarchy_link_itemSet')) {
+	                $groupingLink = $this->hyperlink($groupingLabel, $this->url('site/resource-id', ['site-slug' => $this->currentSite()->slug(), 'controller' => 'item-set', 'id' => $itemSet->id()]));
+	            } else {
+	                $groupingLink = $this->hyperlink($groupingLabel, $this->url('site/hierarchy', ['site-slug' => $this->currentSite()->slug(), 'grouping-id' => $grouping->id()]));
+	            }
+
+	            $itemSetCount = $this->hierarchyHelper()->itemSetCount($grouping, $allGroupings);
+	            // Show itemSet count if hierarchy_show_count checked in config
+	            $itemSetShow = $this->siteSetting('hierarchy_show_count') ? $itemSetCount : '';
+	            // Bold current page grouping
+	            if (!empty($groupingLabel)) {
+	                if ($grouping->id() == $hierarchyGrouping->id()) {
+	                    echo '<li><b>' . $groupingLink . '</b>' . $itemSetShow;
+	                } else if ($itemSetCount == null || (strpos($groupingLabel, '(Private)') !== false)) {
+	                    // Don't link to hierarchies without items to display (private etc.)
+	                    echo '<li>' . $groupingLabel;
+	                } else {
+	                    echo '<li>' . $groupingLink  . $itemSetShow;
+	                }
+	            }
 			}
 
 			// Return any groupings with current grouping as parent
@@ -159,26 +169,53 @@ if ($hierarchyGrouping->getLabel()) {
 		echo '<div class="hierarchy-metadata"><div class="hierarchy-filters">';
 		$hierarchyItemSets = $iterate($groupings, $itemSet, $siteItemSetArray);
 		echo '</div>';
-		echo '<div class="hierarchy-item-sets">';
-
-		if (count($hierarchyItemSets) == 1) {
-			echo 'Contains resources from: ';
-			foreach ($hierarchyItemSets as $itemSet) {
-            	echo $itemSet->link($itemSet->displayTitle());
-        	}
-		} else if (count($hierarchyItemSets) > 1) {
-			$finalItemSet = end($hierarchyItemSets);
-			echo 'Contains resources from: ';
-			foreach ($hierarchyItemSets as $itemSet) {
-				echo $itemSet->link($itemSet->displayTitle());
-				if ($itemSet != $finalItemSet) {
-					echo ', ';
-				}
-			}
-		}
-		echo '</div></div>';
+		if ($this->siteSetting('hierarchy_display_itemSets')) {
+	        echo '<div class="hierarchy-item-sets">';
+	        if (count($hierarchyItemSets) == 1) {
+	            echo 'Contains resources from: ';
+	            foreach ($hierarchyItemSets as $hierarchyItemSet) {
+	                echo $hierarchyItemSet->link($hierarchyItemSet->displayTitle());
+	            }
+	        } else if (count($hierarchyItemSets) > 1) {
+	            $finalItemSet = end($hierarchyItemSets);
+	            echo 'Contains resources from: ';
+	            foreach ($hierarchyItemSets as $hierarchyItemSet) {
+	                echo $hierarchyItemSet->link($hierarchyItemSet->displayTitle());
+	                if ($hierarchyItemSet != $finalItemSet) {
+	                    echo ', ';
+	                }
+	            }
+	        }
+	        echo '</div>';
+	    }
+		echo '</div>';
 	}
 	?>
+
+<?php
+// If hierarchy_show_itemset_metadata checked, display item set metadata
+if ($this->siteSetting('hierarchy_show_itemSet_metadata') && $itemSet):
+    $headingTerm = $this->siteSetting('browse_heading_property_term');
+    $bodyTerm = $this->siteSetting('browse_body_property_term');
+    $heading = $headingTerm ? $itemSet->value($headingTerm, ['default' => $translate('[Untitled]'), 'lang' => $valueLang]) : $itemSet->displayTitle(null, $valueLang);
+    $body = $bodyTerm ? $itemSet->value($bodyTerm, ['lang' => $valueLang]) : $itemSet->displayDescription(null, $valueLang);
+?>
+<ul class="resource-list">
+<li class="item-set resource">
+    <div class="hierarchy-itemset-metadata">
+        <?php
+        $linkContent = sprintf('%s<span class="resource-name">%s</span>',
+            $thumbnail($itemSet, 'medium'),
+            $escape($heading));
+        echo $itemSet->linkRaw($linkContent, null, ['class' => 'resource-link']);
+        ?>
+        <?php if ($body): ?>
+        <div class="description"><?php echo $escape($body); ?></div>
+        <?php endif; ?>
+    </div>
+</li>
+</ul>
+<?php endif; ?>
 
 	<div class="hierarchy-items">
 		<?php echo '<h3>' . $escape($translate('Items')) . '</h3>'; ?>
