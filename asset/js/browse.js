@@ -22,9 +22,7 @@ const browseScripts = () => {
                 if (document.readyState === 'complete') {
                     createMasonryInstance();
                 } else {
-                    window.onload = function () {
-                        createMasonryInstance();
-                    }
+                    window.addEventListener('load', createMasonryInstance);
                 }
             }
         }
