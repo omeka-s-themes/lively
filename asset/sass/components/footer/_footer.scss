@@ -223,6 +223,14 @@
                     text-decoration: underline;
                 }
             }
+
+            ul {
+                display: none;
+
+                @media (min-width: $lg) {
+                    display: block;
+                }
+            }
             
         }
     }
