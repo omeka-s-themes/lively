@@ -26,6 +26,7 @@
     padding: 20px;
     width: calc(100% - 30px);
     margin: 0 15px;
+    z-index: 24;
 
     @media (min-width: $md) {
         width: calc(100% - 60px);

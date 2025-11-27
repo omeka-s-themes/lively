@@ -19,6 +19,8 @@ $navDepth = (int) $this->themeSetting('nav_depth') ? (int) $this->themeSetting('
 			</a>
 		</div>
 
+		<?php echo $this->partial('common/main-header-search', array('class' => 'd-block d-xl-none', 'site' => $site)); ?>
+
 		<nav class="main-navigation">
 			<div class="main-navigation__container">
 				<?php
@@ -28,21 +30,21 @@ $navDepth = (int) $this->themeSetting('nav_depth') ? (int) $this->themeSetting('
 				]);
 				?>
 			</div>
-			<div class="main-navigation__toggle"
-				 tabindex="0"
-				 role="button"
+			<button
+				 class="main-navigation__toggle"
 				 aria-expanded="false"
 				 aria-controls="menu-drawer"
-				 aria-labelledby="menu-backer">
-				<span></span>
-				<span></span>
-				<span></span>
-			</div>
+			>
+				<span class="sr-only">Open menu</span>
+				<span aria-hidden="true"></span>
+				<span aria-hidden="true"></span>
+				<span aria-hidden="true"></span>
+			</button>
 		</nav>
 
 		<?php echo $this->partial('common/menu-drawer'); ?>
 
-		<?php echo $this->partial('common/main-header-search'); ?>
+		<?php echo $this->partial('common/main-header-search', array('class' => 'd-none d-xl-block', 'site' => $site)); ?>
 
 	</div>
 

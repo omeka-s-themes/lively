@@ -1,0 +1,32 @@
+// Import your breakpoints
+@import '../abstracts/variables/breakpoints';
+
+// Map them for easier looping
+$breakpoints: (
+    sm: $sm,
+    md: $md,
+    lg: $lg,
+    xl: $xl,
+    xxl: $xxl
+);
+
+// Display options
+$displays: none, inline, inline-block, block, flex, inline-flex, grid;
+
+// Base utilities
+@each $display in $displays {
+    .d-#{$display} {
+        display: #{$display} !important;
+    }
+}
+
+// Responsive utilities
+@each $breakpoint, $size in $breakpoints {
+    @media (min-width: $size) {
+        @each $display in $displays {
+            .d-#{$breakpoint}-#{$display} {
+                display: #{$display} !important;
+            }
+        }
+    }
+}

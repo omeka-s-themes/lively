@@ -4,15 +4,13 @@ const livelyScripts = () => {
     const mainHeader = document.querySelector('.main-header');
     const mainHeaderTopBar = document.querySelector('.main-header__top-bar');
     const mainHeaderMainBar = document.querySelector('.main-header__main-bar');
-    const mainNavigation = document.querySelector('.main-navigation');
-    const mainSearchButton = document.querySelector('.main-search-button');
-    const mainHeaderSearch = document.querySelector('.main-header-search');
-    const mainSearchInput = mainHeaderSearch.querySelector('input[type="text"]');
     const mainBanner = document.querySelector('.main-banner');
     const mainBannerImgWrapper = document.querySelector('.main-banner__image-wrapper');
     const mainBannerImgShape = document.querySelector('.main-banner__image-shape');
     const userBar = document.getElementById('user-bar');
     const menuDrawer = document.getElementById('menu-drawer');
+    const menuToggle = document.querySelector( '.main-navigation__toggle' );
+    let mainHeaderSearch = null;
 
     // Scrolling Events
 
@@ -50,7 +48,7 @@ const livelyScripts = () => {
 
     let userBarHeight = 0;
     let timeout = false;
-    const delay = 250;
+    const delay = 150;
 
     onResize();
 
@@ -58,8 +56,11 @@ const livelyScripts = () => {
         getUserBarHeight();
         refreshBodyPaddingTop();
         onScroll(lastKnownScrollPosition);
-        setSearchButtonPosition();
         setBannerImagePosition();
+
+        if (window.innerWidth >= 1200 && menuToggle.getAttribute('aria-expanded') === 'true') {
+            menuToggle.click();
+        }
     }
 
     window.addEventListener('resize', function() {
@@ -75,14 +76,6 @@ const livelyScripts = () => {
     function getUserBarHeight() {
         if (userBar) {
             userBarHeight = userBar.offsetHeight;
-        }
-    }
-
-    function setSearchButtonPosition() {
-        if (window.innerWidth < 1200) {
-            mainHeaderMainBar.insertBefore(mainSearchButton, mainNavigation);
-        } else {
-            mainHeaderMainBar.insertBefore(mainSearchButton, mainHeaderSearch);
         }
     }
 
@@ -126,7 +119,7 @@ const livelyScripts = () => {
             const annotationBtnOffset = annotationBtn.getBoundingClientRect();
             const { top, left } = annotationBtnOffset;
             const distanceToRightEdge = window.innerWidth - (left + annotationBtn.offsetWidth);
-            
+
             if (distanceToRightEdge < (annotationTooltipWrapper.offsetWidth + 15)) {
                 annotationTooltip.style.left = (distanceToRightEdge - annotationTooltipWrapper.offsetWidth - 15) + 'px';
             } else {
@@ -146,28 +139,39 @@ const livelyScripts = () => {
             }
         }
     });
-    
+
     // Main Header Search
     document.addEventListener('click', onDocumentClick, true);
 
     function onDocumentClick(e) {
-        if (e.target == mainSearchButton){
-            mainHeaderSearch.classList.toggle('visible');
-            if (mainHeaderSearch.classList.contains('visible')) {
-                mainSearchInput.focus();
+        if (e.target.classList.contains('main-search-button')) {
+            const nextSibling = e.target.nextElementSibling;
+            console.log('nextSibling=', nextSibling);
+            if (nextSibling && nextSibling.classList.contains('main-header-search')) {
+                mainHeaderSearch = nextSibling;
+                mainHeaderSearch.classList.toggle('visible');
+                if (mainHeaderSearch.classList.contains('visible')) {
+                    const mainSearchInput = mainHeaderSearch.querySelector('input[name="fulltext_search"]');
+                    if (mainSearchInput) {
+                        mainSearchInput.focus();
+                    }
+                    document.addEventListener('focusin', onFocusInOutside, true);
+                } else {
+                    document.removeEventListener('focusin', onFocusInOutside, true);
+                }
             }
-        } else if (!mainHeaderSearch.contains(e.target)){
+        } else if (mainHeaderSearch && !mainHeaderSearch.contains(e.target)) {
             mainHeaderSearch.classList.remove('visible');
+            document.removeEventListener('focusin', onFocusInOutside, true);
         }
     }
 
-    mainHeaderSearch.addEventListener('focusout', (e) => {
-        setTimeout(() => {
-            if (!mainHeaderSearch.contains(document.activeElement)) {
-                mainHeaderSearch.classList.remove('visible');
-            }
-        }, 0);
-    });
+    function onFocusInOutside(e) {
+        if (mainHeaderSearch && !mainHeaderSearch.contains(e.target)) {
+            mainHeaderSearch.classList.remove('visible');
+            document.removeEventListener('focusin', onFocusInOutside, true);
+        }
+    }
 
     // Forms
     const forms = document.querySelectorAll('form');
