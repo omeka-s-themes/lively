@@ -40,7 +40,8 @@ $valueLang = $filterLocale ? [$lang, ''] : null;
                         <!-- Thumbnail -->
                         <?php if ($primaryMedia): ?>
                             <div class="resource__thumbnail">
-                                <?php echo $resource->linkRaw($this->thumbnail($primaryMedia, 'large')); ?>
+                                <?php $altText = $primaryMedia->altText() ?: $primaryMedia->displayTitle() ?: ''; ?>
+                                <?php echo $resource->linkRaw($this->thumbnail($primaryMedia, 'large', ['alt' => $altText])); ?>
                             </div>
                         <?php endif; ?>
 

@@ -53,7 +53,9 @@ $bodyTerm = $this->siteSetting('browse_body_property_term');
         foreach ($this->resources as $resource):
             $heading = $headingTerm ? $resource->value($headingTerm, ['default' => $translate('[Untitled]'), 'lang' => $valueLang]) : $resource->displayTitle(null, ($valueLang));
             $body = $bodyTerm ? $resource->value($bodyTerm) : $resource->displayDescription(null, ($valueLang));
-            $thumbnail = $this->thumbnail($resource, 'large');
+            $media = ($resource instanceof \Omeka\Api\Representation\ItemRepresentation) ? ($resource->media()[0] ?? null) : null;
+            $altText = $media ? ($media->altText() ?: $resource->displayTitle()) : $resource->displayTitle();
+            $thumbnail = $this->thumbnail($resource, 'large', ['alt' => $altText]);
             ?>
             <div class="<?php echo $this->resourceType; ?> resource <?php echo ($isGrid) ? '' : 'media-object'; ?>">
                 <!-- Thumbnail -->

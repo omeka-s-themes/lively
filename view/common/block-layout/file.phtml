@@ -16,8 +16,9 @@ if (isset($alignmentClass)) {
             <?php
             $media = $attachment->media() ?: $item->primaryMedia();
             if ($media) :
+                $altText = $media->altText() ?: $media->displayTitle() ?: '';
             ?>
-	            <div class="<?php echo is_array($decoration) && in_array('media', $decoration) ? 'decoration' : ''; ?>">
+                <div class="<?php echo is_array($decoration) && in_array('media', $decoration) ? 'decoration' : ''; ?>">
                     <?php
                     if ($mediaDisplay === 'thumbnail') {
                         switch ($link) {
@@ -33,10 +34,11 @@ if (isset($alignmentClass)) {
                             default:
                                 throw new \InvalidArgumentException(sprintf('Invalid link type "%s"', $linkType));
                         }
-                        echo $hyperlink->raw($this->thumbnail($media, $thumbnailType), $url);
+                        echo $hyperlink->raw($this->thumbnail($media, $thumbnailType, ['alt' => $altText]), $url);
                     } else {
                         echo $media->render([
                             'thumbnailType' => $thumbnailType,
+                            'thumbnailAttribs' => ['alt' => $altText],
                             'link' => $link,
                         ]);
                     }

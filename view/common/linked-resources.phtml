@@ -105,7 +105,9 @@ $headingTerm = $this->siteSetting('browse_heading_property_term');
                 
                 $resource = $value['val']->resource();
                 $heading = $headingTerm ? $resource->value($headingTerm, ['default' => $translate('[Untitled]'), 'lang' => $valueLang]) : $resource->displayTitle(null, ($valueLang));
-                $thumbnail = $this->thumbnail($resource, 'square');
+                $media = ($resource instanceof \Omeka\Api\Representation\ItemRepresentation) ? ($resource->media()[0] ?? null) : null;
+                $altText = $media ? ($media->altText() ?: $resource->displayTitle()) : $resource->displayTitle();
+                $thumbnail = $this->thumbnail($resource, 'square', ['alt' => $altText]);
                 ?>
                 
                 <div class="linked-resource">

@@ -32,15 +32,15 @@ $listState = ($layoutSetting == 'togglelist') ? 'disabled': '';
 $isGrid = (strpos($layoutSetting, 'grid') !== false) ? true : false;
 
 if (isset($_GET['view'])) {
-	if ('list' === $_GET['view']) {
-		$gridState = '';
-		$listState = 'disabled';
-		$isGrid = false;
-	} else {
-		$gridState = 'disabled';
-		$listState = '';
-		$isGrid = true;
-	}
+    if ('list' === $_GET['view']) {
+        $gridState = '';
+        $listState = 'disabled';
+        $isGrid = false;
+    } else {
+        $gridState = 'disabled';
+        $listState = '';
+        $isGrid = true;
+    }
 }
 
 $headingTerm = $this->siteSetting('browse_heading_property_term');
@@ -123,7 +123,9 @@ $bodyTruncate = $this->themeSetting('truncate_body_property');
     foreach ($items as $item):
         $heading = $headingTerm ? $item->value($headingTerm, ['default' => $translate('[Untitled]')]) : $item->displayTitle(null, $valueLang);
         $body = $bodyTerm ? $item->value($bodyTerm, ['lang' => ($valueLang)]) : $item->displayDescription(null, ($valueLang));
-        $thumbnail = $this->thumbnail($item, 'large');
+        $media = $item->primaryMedia();
+        $altText = $media ? ($media->altText() ?: $item->displayTitle()) : $item->displayTitle();
+        $thumbnail = $this->thumbnail($item, 'large', ['alt' => $altText]);
         ?>
         <div class="item resource <?php echo ($isGrid) ? '' : 'media-object'; ?>">
             <!-- Thumbnail -->
