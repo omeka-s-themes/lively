@@ -7,7 +7,7 @@ $lang = $this->lang();
 $valueLang = $filterLocale ? [$lang, ''] : null;
 $query = $this->params()->fromQuery();
 $hierarchyHeadingLevel = "h2";
-$hierarchyItemSetsArray = [];
+$hierarchyItemSetArray = [];
 
 $this->headLink()->appendStylesheet($this->assetUrl('css/hierarchy.css', 'Hierarchy'));
 $this->headLink()->appendStylesheet($this->assetUrl('css/resource-page-blocks.css', 'Omeka'));
@@ -166,9 +166,10 @@ if ($hierarchyGrouping->getLabel()) {
             $siteItemSetArray[] = $siteItemSet->itemSet()->id();
         }
 
-        echo '<div class="hierarchy-metadata"><div class="hierarchy-filters">';
+        echo '<div class="hierarchy-sidebar-content"><div class="hierarchy-metadata"><div class="hierarchy-filters">';
         $hierarchyItemSets = $iterate($groupings, $itemSet, $siteItemSetArray);
         echo '</div>';
+
         if ($this->siteSetting('hierarchy_display_itemSets')) {
             echo '<div class="hierarchy-item-sets">';
             if (count($hierarchyItemSets) == 1) {
@@ -188,83 +189,87 @@ if ($hierarchyGrouping->getLabel()) {
             }
             echo '</div>';
         }
-        echo '</div>';
+
+        echo '</div></div>';
     }
+
     ?>
 
-<?php
-// If hierarchy_show_itemset_metadata checked, display item set metadata
-if ($this->siteSetting('hierarchy_show_itemSet_metadata') && $itemSet):
-    $headingTerm = $this->siteSetting('browse_heading_property_term');
-    $bodyTerm = $this->siteSetting('browse_body_property_term');
-    $heading = $headingTerm ? $itemSet->value($headingTerm, ['default' => $translate('[Untitled]'), 'lang' => $valueLang]) : $itemSet->displayTitle(null, $valueLang);
-    $body = $bodyTerm ? $itemSet->value($bodyTerm, ['lang' => $valueLang]) : $itemSet->displayDescription(null, $valueLang);
-?>
-<ul class="resource-list">
-<li class="item-set resource">
-    <div class="hierarchy-itemset-metadata">
+    <div class="hierarchy-main-content">
         <?php
-        $linkContent = sprintf('%s<span class="resource-name">%s</span>',
-            $thumbnail($itemSet, 'medium'),
-            $escape($heading));
-        echo $itemSet->linkRaw($linkContent, null, ['class' => 'resource-link']);
-        ?>
-        <?php if ($body): ?>
-        <div class="description"><?php echo $escape($body); ?></div>
-        <?php endif; ?>
-    </div>
-</li>
-</ul>
-<?php endif; ?>
-
-    <div class="hierarchy-items">
-        <?php echo '<h3>' . $escape($translate('Items')) . '</h3>'; ?>
-
-        <?php echo $this->searchFilters(); ?>
-
-        <div class="browse-controls">
-            <?php echo $this->pagination(); ?>
-            <?php echo $this->hyperlink($translate('Advanced search'), $this->url('site/resource', ['controller' => 'item', 'action' => 'search'], true), ['class' => 'advanced-search']); ?>
-            <?php echo $this->browse()->renderSortSelector('items'); ?>
-        </div>
-
-        <?php $this->trigger('view.browse.before'); ?>
-        <ul class="resource-list">
-            <?php
+        // If hierarchy_show_itemset_metadata checked, display item set metadata
+        if ($this->siteSetting('hierarchy_show_itemSet_metadata') && $itemSet):
             $headingTerm = $this->siteSetting('browse_heading_property_term');
             $bodyTerm = $this->siteSetting('browse_body_property_term');
-            $bodyTruncate = $this->themeSetting('truncate_body_property');
-            foreach ($items as $item):
-                $heading = $headingTerm ? $item->value($headingTerm, ['default' => $translate('[Untitled]'), 'lang' => $valueLang]) : $item->displayTitle(null, $valueLang);
-                $body = $bodyTerm ? $item->value($bodyTerm, ['lang' => $valueLang]) : $item->displayDescription(null, $valueLang);
-                $primaryMedia = $item->primaryMedia();
+            $heading = $headingTerm ? $itemSet->value($headingTerm, ['default' => $translate('[Untitled]'), 'lang' => $valueLang]) : $itemSet->displayTitle(null, $valueLang);
+            $body = $bodyTerm ? $itemSet->value($bodyTerm, ['lang' => $valueLang]) : $itemSet->displayDescription(null, $valueLang);
+        ?>
+        <ul class="resource-list">
+        <li class="item-set resource">
+            <div class="hierarchy-itemset-metadata">
+                <?php
+                $linkContent = sprintf('%s<span class="resource-name">%s</span>',
+                    $thumbnail($itemSet, 'medium'),
+                    $escape($heading));
+                echo $itemSet->linkRaw($linkContent, null, ['class' => 'resource-link']);
                 ?>
-                <li class="item resource">
-                    <!-- Thumbnail -->
-                    <?php if ($primaryMedia): ?>
-                        <div class="resource__thumbnail">
-                            <?php $altText = $primaryMedia->altText() ?: $primaryMedia->displayTitle() ?: ''; ?>
-                            <?php echo $item->linkRaw($this->thumbnail($primaryMedia, 'square', ['alt' => $altText])); ?>
-                        </div>
-                    <?php endif; ?>
-
-                    <!-- Content -->
-                    <div class="resource__content">
-                        <?php echo $this->ResourceTags($item); ?>
-                        <!-- Metadata -->
-                        <div class="resource__meta">
-                            <?php echo $item->link($heading); ?>
-                            <?php if ($body): ?>
-                                <div class="description <?php echo ($bodyTruncate) ? $bodyTruncate : ''; ?>"><?php echo $escape($body); ?></div>
-                            <?php endif; ?>
-                        </div>
-                    </div>
-                </li>
-            <?php endforeach; ?>
+                <?php if ($body): ?>
+                <div class="description"><?php echo $escape($body); ?></div>
+                <?php endif; ?>
+            </div>
+        </li>
         </ul>
-        <div class="browse-controls">
-            <?php echo $this->pagination(); ?>
+        <?php endif; ?>
+
+        <div class="hierarchy-items">
+            <?php echo '<h3>' . $escape($translate('Items')) . '</h3>'; ?>
+
+            <?php echo $this->searchFilters(); ?>
+
+            <div class="browse-controls">
+                <?php echo $this->pagination(); ?>
+                <?php echo $this->hyperlink($translate('Advanced search'), $this->url('site/resource', ['controller' => 'item', 'action' => 'search'], true), ['class' => 'advanced-search']); ?>
+                <?php echo $this->browse()->renderSortSelector('items'); ?>
+            </div>
+
+            <?php $this->trigger('view.browse.before'); ?>
+            <ul class="resource-list">
+                <?php
+                $headingTerm = $this->siteSetting('browse_heading_property_term');
+                $bodyTerm = $this->siteSetting('browse_body_property_term');
+                $bodyTruncate = $this->themeSetting('truncate_body_property');
+                foreach ($items as $item):
+                    $heading = $headingTerm ? $item->value($headingTerm, ['default' => $translate('[Untitled]'), 'lang' => $valueLang]) : $item->displayTitle(null, $valueLang);
+                    $body = $bodyTerm ? $item->value($bodyTerm, ['lang' => $valueLang]) : $item->displayDescription(null, $valueLang);
+                    $primaryMedia = $item->primaryMedia();
+                    ?>
+                    <li class="item resource">
+                        <!-- Thumbnail -->
+                        <?php if ($primaryMedia): ?>
+                            <div class="resource__thumbnail">
+                                <?php $altText = $primaryMedia->altText() ?: $primaryMedia->displayTitle() ?: ''; ?>
+                                <?php echo $item->linkRaw($this->thumbnail($primaryMedia, 'square', ['alt' => $altText])); ?>
+                            </div>
+                        <?php endif; ?>
+
+                        <!-- Content -->
+                        <div class="resource__content">
+                            <?php echo $this->ResourceTags($item); ?>
+                            <!-- Metadata -->
+                            <div class="resource__meta">
+                                <?php echo $item->link($heading); ?>
+                                <?php if ($body): ?>
+                                    <div class="description <?php echo ($bodyTruncate) ? $bodyTruncate : ''; ?>"><?php echo $escape($body); ?></div>
+                                <?php endif; ?>
+                            </div>
+                        </div>
+                    </li>
+                <?php endforeach; ?>
+            </ul>
+            <div class="browse-controls">
+                <?php echo $this->pagination(); ?>
+            </div>
+            <?php $this->trigger('view.browse.after'); ?>
         </div>
-        <?php $this->trigger('view.browse.after'); ?>
     </div>
 </div>
