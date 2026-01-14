@@ -1,4 +1,15 @@
 .hierarchy-module {
+    .hierarchy-sidebar-content {
+        padding-bottom: 50px;
+    }
+
+    .hierarchy-main-content {
+        @media (max-width: $md) {
+            border-left: none;
+            padding-left: 0;
+        }
+    }
+
     .hierarchy-itemset-metadata {
         padding: 15px;
         width: 100%;
