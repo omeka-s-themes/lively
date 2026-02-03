@@ -12,11 +12,11 @@
             <div class="top-bar__info">
                 <?php if ($contactInfoLocation) : ?>
                     <?php if ($contactInfoLocationLink) : ?>
-                        <a class="contact_info contact_info_location" target="_blank" href="<?php echo $contactInfoLocationLink; ?>">
+                        <a class="contact_info contact_info_location" target="_blank" href="<?php echo $this->escapeHtmlAttr($contactInfoLocationLink); ?>">
                     <?php else : ?>
                         <div class="contact_info contact_info_location">
                     <?php endif; ?>
-                            <?php echo $contactInfoLocation; ?>
+                            <?php echo $this->escapeHtml($contactInfoLocation); ?>
 	                <?php if ($contactInfoLocationLink) : ?>
                         </a>
 	                <?php else : ?>
@@ -24,10 +24,10 @@
 		            <?php endif; ?>
                 <?php endif; ?>
                 <?php if ($contactInfoPhone) : ?>
-                    <div class="contact_info contact_info_phone"><a href="tel:<?php echo $contactInfoPhone; ?>"><?php echo $contactInfoPhone; ?></a></div>
+                    <div class="contact_info contact_info_phone"><a href="tel:<?php echo $this->escapeHtmlAttr($contactInfoPhone); ?>"><?php echo $this->escapeHtml($contactInfoPhone); ?></a></div>
                 <?php endif; ?>
                 <?php if ($contactInfoEmail) : ?>
-                    <div class="contact_info contact_info_email"><a target="_blank" href="mailto:<?php echo $contactInfoEmail; ?>"><?php echo $contactInfoEmail; ?></a></div>
+                    <div class="contact_info contact_info_email"><a target="_blank" href="mailto:<?php echo $this->escapeHtmlAttr($contactInfoEmail); ?>"><?php echo $this->escapeHtml($contactInfoEmail); ?></a></div>
                 <?php endif; ?>
             </div>
         <?php endif; ?>

@@ -1,13 +1,13 @@
 <div class="footer-contact-info container">
     <div class="footer-contact-info__content">
         <?php if ($contactInfo['location']) : ?>
-            <h6 class="contact_info contact_info_location"><?php echo $contactInfo['location']; ?></h6>
+            <h6 class="contact_info contact_info_location"><?php echo $this->escapeHtml($contactInfo['location']); ?></h6>
         <?php endif; ?>
         <?php if ($contactInfo['phone']) : ?>
-            <h6 class="contact_info contact_info_phone"><a href="tel:<?php echo $contactInfo['phone']; ?>"><?php echo $contactInfo['phone']; ?></a></h6>
+            <h6 class="contact_info contact_info_phone"><a href="tel:<?php echo $this->escapeHtmlAttr($contactInfo['phone']); ?>"><?php echo $this->escapeHtml($contactInfo['phone']); ?></a></h6>
         <?php endif; ?>
         <?php if ($contactInfo['email']) : ?>
-            <h6 class="contact_info contact_info_email"><a target="_blank" href="mailto:<?php echo $contactInfo['email']; ?>"><?php echo $contactInfo['email']; ?></a></h6>
+            <h6 class="contact_info contact_info_email"><a target="_blank" href="mailto:<?php echo $this->escapeHtmlAttr($contactInfo['email']); ?>"><?php echo $this->escapeHtml($contactInfo['email']); ?></a></h6>
         <?php endif; ?>
     </div>
 </div>

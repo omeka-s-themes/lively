@@ -46,10 +46,10 @@ $imageInlineStyles = "object-position: {$bannerHorizontalPosition} {$bannerVerti
                     <h2 class="main-banner__heading"><?php echo $escHtml($bannerHeading); ?></h2>
                 <?php endif; ?>
                 <?php if($bannerDescription) : ?>
-                    <p class="main-banner__description"><?php echo $escHtml($bannerDescription); ?></p>
+                    <p class="main-banner__description"><?php echo nl2br($this->escapeHtml($bannerDescription)); ?></p>
                 <?php endif; ?>
                 <?php if($bannerButtonLink) : ?>
-                    <a class="button" target="_blank" href="<?php echo $bannerButtonLink; ?>"><?php echo $bannerButtonLabel; ?></a>
+                    <a class="button" target="_blank" href="<?php echo $this->escapeHtmlAttr($bannerButtonLink); ?>"><?php echo $this->escapeHtml($bannerButtonLabel); ?></a>
                 <?php endif; ?>
             </div>
         </div>

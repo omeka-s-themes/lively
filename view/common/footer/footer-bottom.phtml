@@ -26,7 +26,7 @@ if ( $this->themeSetting( 'footer_bottom_terms_link' ) || $this->themeSetting( '
                         $terms_title = $terms_link;
                     }
                 ?>
-                <a target="_blank" href="<?php echo $terms_link; ?>"><?php echo $terms_title; ?></a>
+                <a target="_blank" href="<?php echo $this->escapeHtmlAttr($terms_link); ?>"><?php echo $this->escapeHtml($terms_title); ?></a>
             <?php endif; ?>
 
             <?php if ( $privacy_link = $this->themeSetting( 'footer_bottom_privacy_link' ) ) : ?>
@@ -36,7 +36,7 @@ if ( $this->themeSetting( 'footer_bottom_terms_link' ) || $this->themeSetting( '
                         $privacy_title = $privacy_link;
                     }
                 ?>
-                <a target="_blank" href="<?php echo $privacy_link; ?>"><?php echo $privacy_title; ?></a>
+                <a target="_blank" href="<?php echo $this->escapeHtmlAttr($privacy_link); ?>"><?php echo $this->escapeHtml($privacy_title); ?></a>
             <?php endif; ?>
         </div>
 
