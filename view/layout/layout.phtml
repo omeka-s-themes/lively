@@ -9,8 +9,6 @@ $secondaryColor = $this->themeSetting('secondary_color') ?? '#4D1068';
 $accentColor = $this->themeSetting('accent_color') ?? '#0a4f9e';
 $complementaryColor = $this->themeSetting('complementary_color') ?? '#F0B247';
 
-
-$this->htmlElement('html')->setAttribute('lang', $this->lang());
 $this->headMeta()->setCharset('utf-8');
 $this->headMeta()->appendName('viewport', 'width=device-width, initial-scale=1');
 $this->headTitle($siteTitle)->setSeparator(' · ');
@@ -29,7 +27,7 @@ if ($userBar) {
 ?>
 
 <?php echo $this->doctype(); ?>
-<?php echo $this->htmlElement('html'); ?>
+<?php echo $this->htmlElement('html')->setAttribute('lang', $this->lang()); ?>
 	<head>
 		<?php echo $this->headMeta(); ?>
 		<?php echo $this->headTitle(); ?>
@@ -51,13 +49,13 @@ if ($userBar) {
 	</head>
 
 	<?php echo $this->htmlElement('body'); ?>
-		<a id="skipnav" href="#main-content"><?php echo $this->translate('Skip to main content'); ?></a>
+		<a id="skipnav" href="#content"><?php echo $this->translate('Skip to main content'); ?></a>
 
 		<?php echo $this->partial('common/header', ['userBar' => $userBar, 'site' => $site]); ?>
 
 		<?php echo $this->partial('common/banner'); ?>
 
-		<div id="main-content" class="container" role="main" tabindex="-1">
+		<div id="content" class="container" role="main" tabindex="-1">
 			<?php echo $this->content; ?>
 		</div>
 
