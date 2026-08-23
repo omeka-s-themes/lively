@@ -29,12 +29,6 @@
             color: $color__primary;
             text-decoration: underline;
 
-            &:hover,
-            &:active,
-            &:focus {
-                outline: none;
-            }
-
             &:disabled,
             &[disabled]
             &.disabled {

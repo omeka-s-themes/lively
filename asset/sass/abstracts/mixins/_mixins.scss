@@ -59,11 +59,6 @@
         color: $color__white;
     }
     
-    &:focus {
-        color: $color__white;
-        outline: 5px auto Highlight;
-    }
-    
     &:disabled,
     &[disabled]
     &.disabled {
@@ -86,10 +81,6 @@
         background-color: $color__white;
         border: 1px solid $color__secondary;
         color: $color__secondary;
-    }
-    
-    &:focus {
-        outline: 5px auto Highlight;
     }
     
     &:disabled,

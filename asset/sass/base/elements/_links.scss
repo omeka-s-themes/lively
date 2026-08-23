@@ -13,10 +13,6 @@ a {
         color: $color__secondary-dark;
     }
 
-    &:focus {
-        outline: thin dotted;
-    }
-
     &:hover,
     &:active {
         outline: 0;
