@@ -38,9 +38,12 @@ if ($userBar) {
 			:root {
 				--primary: <?php echo $primaryColor; ?>;
 				--primary-dark: <?php echo $this->ShadeColor($primaryColor, -10); ?>;
+				--primary-contrast: <?php echo $this->ContrastColor($primaryColor, ['#fff', '#333']); ?>;
 				--secondary: <?php echo $secondaryColor; ?>;
 				--secondary-dark: <?php echo $this->ShadeColor($secondaryColor, -10); ?>;
+				--secondary-contrast: <?php echo $this->ContrastColor($secondaryColor, ['#fff', '#333']); ?>;
 				--accent: <?php echo $accentColor; ?>;
+				--accent-dark: <?php echo $this->ShadeColor($accentColor, -10); ?>;
 				--complementary: <?php echo $complementaryColor; ?>;
 			}
 
