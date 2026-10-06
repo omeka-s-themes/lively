@@ -1,0 +1,14 @@
+<?php
+$media = $resource->primaryMedia();
+$decoration = $this->themeSetting('image_decoration');
+?>
+<?php if ($media): ?>
+<?php $altText = $media->altText() ?: $media->displayTitle() ?: ''; ?>
+<div class="media-embeds">
+    <div class="media-embed">
+        <div class="<?php echo is_array($decoration) && in_array('media', $decoration) ? 'decoration' : ''; ?>">
+            <?php echo $media->render(['thumbnailAttribs' => ['alt' => $altText]]); ?>
+        </div>
+    </div>
+</div>
+<?php endif; ?>
