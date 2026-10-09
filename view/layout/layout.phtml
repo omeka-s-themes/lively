@@ -7,6 +7,7 @@ $bannerHeightProperty = $bannerHeading || $bannerDescription ? 'min-height' : 'h
 $primaryColor = $this->themeSetting('primary_color') ?? '#d62d6a';
 $secondaryColor = $this->themeSetting('secondary_color') ?? '#4D1068';
 $accentColor = $this->themeSetting('accent_color') ?? '#0a4f9e';
+$linkColor = $this->themeSetting('link_color') ?? '#031831';
 $complementaryColor = $this->themeSetting('complementary_color') ?? '#F0B247';
 
 $this->headMeta()->setCharset('utf-8');
@@ -44,6 +45,7 @@ if ($userBar) {
 				--secondary-contrast: <?php echo $this->ContrastColor($secondaryColor, ['#fff', '#333']); ?>;
 				--accent: <?php echo $accentColor; ?>;
 				--accent-dark: <?php echo $this->ShadeColor($accentColor, -10); ?>;
+				--link: <?php echo $linkColor; ?>;
 				--complementary: <?php echo $complementaryColor; ?>;
 			}
 
